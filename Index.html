@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Portugal 2026 · May 3–10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ocean:       #1B4965;
+  --ocean-dark:  #0e3247;
+  --azulejo:     #62B6CB;
+  --terracotta:  #C4653A;
+  --sand:        #F7EBD8;
+  --gold:        #E8A927;
+  --gold-dark:   #c48c10;
+  --white:       #FEFCF9;
+  --charcoal:    #2D2A26;
+  --stone:       #8B8178;
+  --display: 'Playfair Display', Georgia, serif;
+  --body:    'DM Sans', system-ui, sans-serif;
+  --r:    14px;
+  --shadow:    0 4px 16px rgba(27,73,101,.14);
+  --shadow-lg: 0 10px 36px rgba(27,73,101,.22);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.65;
+  color:var(--charcoal);
+  background:var(--sand);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ═══════════════════════════════
+   HEADER
+═══════════════════════════════ */
+.app-header{
+  background-color: var(--ocean-dark);
+  background-image:
+    linear-gradient(150deg, rgba(14,50,71,.0) 0%, rgba(37,95,128,.6) 100%),
+    linear-gradient(45deg,  rgba(98,182,203,.12) 25%, transparent 25%),
+    linear-gradient(135deg, rgba(98,182,203,.12) 25%, transparent 25%),
+    linear-gradient(45deg,  transparent 75%, rgba(98,182,203,.12) 75%),
+    linear-gradient(135deg, transparent 75%, rgba(98,182,203,.12) 75%);
+  background-size: auto, 18px 18px, 18px 18px, 18px 18px, 18px 18px;
+  background-position: 0 0, 0 0, 9px 0, 9px -9px, 0 9px;
+  border-bottom: 3px solid var(--gold);
+  padding: 18px 20px 16px;
+  position: sticky; top: 0; z-index: 100;
+}
+.app-header h1{
+  font-family: var(--display);
+  font-size: 30px; font-weight: 700;
+  color: var(--white); letter-spacing: -.4px; line-height: 1.15;
+}
+.app-header .sub{
+  font-size: 13px; color: var(--azulejo);
+  font-weight: 500; margin-top: 4px; letter-spacing: .3px;
+}
+
+/* ═══════════════════════════════
+   TOP TAB NAV
+═══════════════════════════════ */
+.top-nav{
+  background: var(--white);
+  display: flex;
+  position: sticky;
+  top: calc(64px + 3px); /* header height + border */
+  z-index: 90;
+  box-shadow: 0 2px 8px rgba(27,73,101,.10);
+}
+.tab-btn{
+  flex: 1; min-height: 50px;
+  background: none; border: none; border-bottom: 3px solid transparent;
+  color: var(--stone);
+  font-family: var(--body); font-size: 11px; font-weight: 600;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; cursor: pointer; padding: 6px 2px;
+  letter-spacing: .2px; transition: color .18s, border-color .18s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tab-btn .ti{font-size: 15px; line-height: 1}
+.tab-btn.active{
+  color: var(--ocean);
+  border-bottom-color: var(--terracotta);
+}
+
+/* ═══════════════════════════════
+   LAYOUT
+═══════════════════════════════ */
+main{max-width: 600px; margin: 0 auto; padding: 0 0 40px}
+.tab-pane{display: none}
+.tab-pane.active{display: block}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(8px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(14px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+
+/* ═══════════════════════════════
+   WEATHER WIDGET
+═══════════════════════════════ */
+@keyframes shimmer{
+  0%  {background-position:-300% center}
+  100%{background-position: 300% center}
+}
+.weather-widget{
+  margin: 18px 16px 0;
+  border-radius: var(--r);
+  padding: 22px 20px 18px;
+  color: #fff;
+  position: relative; overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.weather-widget.loading{
+  background: linear-gradient(90deg, var(--ocean) 0%, #256a8c 30%, #2d85a8 50%, #256a8c 70%, var(--ocean) 100%);
+  background-size: 300% auto;
+  animation: shimmer 2.2s linear infinite;
+}
+.weather-widget.loaded{
+  background: linear-gradient(135deg, var(--ocean-dark) 0%, #1e5878 60%, #256a8c 100%);
+}
+.weather-widget::before{
+  content:'';position:absolute;top:-24px;right:-24px;
+  width:110px;height:110px;background:rgba(98,182,203,.16);border-radius:50%
+}
+.weather-widget::after{
+  content:'';position:absolute;bottom:-32px;right:28px;
+  width:80px;height:80px;background:rgba(232,169,39,.12);border-radius:50%
+}
+.wt-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1}
+.wt-loc{font-size:12px;opacity:.7;margin-bottom:4px;letter-spacing:.3px;text-transform:uppercase}
+.wt-temp{font-size:56px;font-weight:700;font-family:var(--display);line-height:1}
+.wt-unit{font-size:22px;opacity:.75;font-weight:400;font-family:var(--display)}
+.wt-desc{font-size:15px;opacity:.9;margin-top:5px}
+.wt-icon{font-size:58px;line-height:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,.2))}
+.wt-link{
+  display:inline-block;margin-top:16px;padding:9px 18px;
+  background:rgba(255,255,255,.15);border-radius:22px;
+  font-size:13px;font-weight:500;color:#fff;text-decoration:none;
+  border:1px solid rgba(255,255,255,.22);transition:background .2s;
+  position:relative;z-index:1;
+}
+.wt-link:hover{background:rgba(255,255,255,.22)}
+
+/* ═══════════════════════════════
+   TODAY HEADER
+═══════════════════════════════ */
+.today-hdr{
+  margin:16px 16px 0;
+  background:linear-gradient(135deg,rgba(27,73,101,.07),rgba(98,182,203,.10));
+  border:1.5px solid rgba(27,73,101,.14);
+  border-radius:var(--r);padding:18px 20px;
+}
+.today-hdr .dl{font-family:var(--display);font-size:22px;font-weight:700;color:var(--ocean)}
+.today-hdr .dm{font-size:14px;color:var(--stone);margin-top:3px}
+.sunset-chip{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(232,169,39,.18);color:var(--gold-dark);
+  border-radius:20px;padding:4px 11px;font-size:13px;font-weight:600;margin-top:9px;
+}
+
+/* ═══════════════════════════════
+   HERO (pre/post trip)
+═══════════════════════════════ */
+.trip-hero{
+  margin:20px 16px 0;
+  background:linear-gradient(150deg,var(--ocean-dark) 0%,var(--ocean) 100%);
+  border-radius:var(--r);padding:32px 24px;text-align:center;
+  box-shadow:var(--shadow-lg);color:#fff;
+  animation:fadeUp .3s ease both;
+}
+.trip-hero .flag{font-size:52px;margin-bottom:12px;display:block}
+.trip-hero h2{
+  font-family:var(--display);font-size:26px;font-weight:700;
+  color:var(--white);margin-bottom:8px;line-height:1.2;
+}
+.trip-hero p{font-size:15px;color:rgba(255,255,255,.75)}
+.trip-hero .dates{
+  display:inline-block;margin-top:14px;
+  background:rgba(232,169,39,.25);border:1px solid rgba(232,169,39,.4);
+  color:var(--gold);border-radius:22px;padding:6px 18px;
+  font-size:14px;font-weight:600;letter-spacing:.3px;
+}
+
+/* ── COUNTDOWN TIMER ── */
+.countdown-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  margin:22px 0 18px;
+}
+.cd-unit{
+  text-align:center;background:rgba(255,255,255,.12);
+  border-radius:12px;padding:14px 6px 12px;
+  border:1px solid rgba(255,255,255,.18);
+}
+.cd-num{
+  font-family:var(--display);font-size:36px;font-weight:700;
+  color:#fff;line-height:1;display:block;
+  text-shadow:0 2px 8px rgba(0,0,0,.25);
+}
+.cd-label{
+  font-size:10px;letter-spacing:1.4px;text-transform:uppercase;
+  color:rgba(255,255,255,.6);margin-top:6px;display:block;font-weight:600;
+}
+.cd-flight{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+  border-radius:20px;padding:8px 16px;font-size:13px;font-weight:500;
+  color:rgba(255,255,255,.9);margin-top:4px;
+}
+
+/* ═══════════════════════════════
+   SECTION HEADINGS
+═══════════════════════════════ */
+.sec-title{
+  font-family:var(--display);font-size:24px;font-weight:700;
+  color:var(--ocean);padding:22px 16px 4px;
+}
+.sec-sub{font-size:14px;color:var(--stone);padding:0 16px 14px}
+
+/* ═══════════════════════════════
+   DAY CARDS
+═══════════════════════════════ */
+.daily-day-card{
+  margin:0 16px;
+  border-radius:var(--r);
+  background:linear-gradient(180deg,#fffaf5 0%,var(--white) 60%);
+  box-shadow:var(--shadow);
+  overflow:hidden;position:relative;
+  animation:cardIn .38s ease both;
+  transition:box-shadow .22s,transform .22s;
+}
+.daily-day-card:hover{
+  box-shadow:var(--shadow-lg);
+  transform:translateY(-2px);
+}
+.daily-day-card::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--terracotta) 0%,var(--gold) 100%);
+}
+.day-gap{margin-bottom:14px}
+
+.ddc-header{
+  padding:16px 18px 13px;
+  border-bottom:1px solid rgba(27,73,101,.08);
+  display:flex;align-items:flex-start;gap:13px;
+  padding-top:20px; /* clear the top stripe */
+}
+.ddc-emoji{font-size:30px;flex-shrink:0;margin-top:1px}
+.ddc-info{flex:1}
+.ddc-title{font-family:var(--display);font-size:19px;font-weight:700;color:var(--ocean);line-height:1.2}
+.ddc-location{font-size:14px;color:var(--stone);margin-top:3px}
+.ddc-chips{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap;align-items:center}
+.chip{
+  font-size:12px;padding:3px 9px;border-radius:10px;
+  background:rgba(27,73,101,.09);color:var(--ocean);font-weight:500;
+}
+.chip-sun{background:rgba(232,169,39,.18);color:var(--gold-dark);font-weight:600}
+.chip-weather{
+  font-size:12px;padding:3px 9px;border-radius:10px;
+  background:rgba(98,182,203,.15);color:#16607a;font-weight:600;
+  display:inline-flex;align-items:center;gap:4px;
+}
+
+/* ═══════════════════════════════
+   WARNING BANNERS
+═══════════════════════════════ */
+.warn{
+  background:#fff8e6;border:1px solid rgba(232,169,39,.45);
+  border-radius:9px;padding:11px 14px;font-size:14px;color:#6b4c00;
+  margin:14px 18px 0;line-height:1.45;
+}
+.warn-red{
+  background:#fff0ee;border-color:rgba(196,101,58,.35);
+  color:#7a2c12;
+}
+
+/* ═══════════════════════════════
+   ACTIVITY ACCORDION
+═══════════════════════════════ */
+.act-item{border-bottom:1px solid rgba(27,73,101,.06)}
+.act-item:last-child{border-bottom:none}
+.act-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;cursor:pointer;gap:10px;min-height:54px;
+  -webkit-tap-highlight-color:transparent;transition:background .15s;
+}
+.act-hdr:active{background:rgba(27,73,101,.04)}
+.act-title{font-size:15px;font-weight:600;color:var(--charcoal);flex:1;line-height:1.35}
+.act-chev{font-size:11px;color:var(--stone);transition:transform .22s;flex-shrink:0}
+.act-item.open .act-chev{transform:rotate(180deg)}
+.act-body{display:none;padding:2px 18px 16px;background:rgba(247,235,216,.22)}
+.act-item.open .act-body{display:block}
+.act-body ul{list-style:none;padding:0}
+.act-body ul li{
+  font-size:15px;color:var(--charcoal);
+  padding:6px 0 6px 18px;position:relative;
+  border-bottom:1px solid rgba(27,73,101,.05);line-height:1.5;
+}
+.act-body ul li:last-child{border-bottom:none}
+.act-body ul li::before{content:'·';position:absolute;left:5px;color:var(--terracotta);font-weight:700;font-size:16px;line-height:1.4}
+.act-body a[href^="tel:"]{color:var(--azulejo);font-weight:600;text-decoration:none}
+.act-body a[href^="https"]{color:var(--azulejo);font-weight:600;text-decoration:none}
+
+/* ═══════════════════════════════
+   DINING SECTION
+═══════════════════════════════ */
+.dining-section{padding:4px 18px 16px}
+.dining-lbl{
+  font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  color:var(--terracotta);margin-bottom:9px;margin-top:14px;
+}
+.dc{
+  background:rgba(196,101,58,.07);border:1px solid rgba(196,101,58,.17);
+  border-radius:10px;padding:12px 14px;margin-bottom:8px;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:10px;
+}
+.dc:last-child{margin-bottom:0}
+.dc-name{font-size:15px;font-weight:600;color:var(--charcoal)}
+.dc-type{font-size:12px;color:var(--stone);margin-top:2px;line-height:1.4}
+.dc-type .book{color:var(--gold-dark);font-weight:600}
+.map-pin-btn{
+  background:var(--ocean);color:#fff;border:none;
+  border-radius:8px;padding:8px 12px;font-size:13px;font-weight:600;
+  cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent;
+  font-family:var(--body);transition:background .18s;
+  text-decoration:none;display:inline-block;text-align:center;
+}
+.map-pin-btn:hover{background:#256a8c}
+
+/* ═══════════════════════════════
+   ACCOMMODATION BADGE
+═══════════════════════════════ */
+.acc-badge{
+  margin:4px 18px 16px;display:flex;align-items:center;gap:10px;
+  padding:13px 15px;
+  background:linear-gradient(135deg,rgba(27,73,101,.08),rgba(98,182,203,.06));
+  border-radius:10px;border-left:4px solid var(--ocean);
+}
+.acc-info{flex:1}
+.acc-name{font-size:15px;font-weight:600;color:var(--ocean)}
+.acc-night{font-size:12px;color:var(--stone);margin-top:2px}
+.acc-night .pack{color:var(--gold-dark);font-weight:700}
+.acc-map-btn{
+  background:none;border:1.5px solid var(--ocean);color:var(--ocean);
+  border-radius:8px;padding:7px 12px;font-size:13px;font-weight:600;
+  cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent;
+  font-family:var(--body);transition:background .18s,color .18s;
+  text-decoration:none;display:inline-block;text-align:center;
+}
+.acc-map-btn:hover{background:var(--ocean);color:#fff}
+
+/* ═══════════════════════════════
+   TODAY SINGLE-DAY CARD
+═══════════════════════════════ */
+.today-card{
+  margin:14px 16px 0;
+  border-radius:var(--r);
+  background:linear-gradient(180deg,#fffaf5 0%,var(--white) 60%);
+  box-shadow:var(--shadow);
+  overflow:hidden;position:relative;
+}
+.today-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--terracotta) 0%,var(--gold) 100%);
+}
+
+/* ═══════════════════════════════
+   SECTION TITLES
+═══════════════════════════════ */
+
+/* ═══════════════════════════════
+   PLACES TAB
+═══════════════════════════════ */
+.place-card{
+  margin:0 16px 18px;border-radius:var(--r);
+  background:var(--white);box-shadow:var(--shadow);
+  overflow:hidden;
+  transition:box-shadow .22s,transform .22s;
+}
+.place-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.place-hdr{
+  background:linear-gradient(150deg,var(--ocean-dark) 0%,#1e5e80 100%);
+  padding:24px 20px;position:relative;overflow:hidden;
+}
+.place-hdr::before{content:'';position:absolute;top:-18px;right:-18px;width:100px;height:100px;background:rgba(98,182,203,.2);border-radius:50%}
+.place-hdr::after{content:'';position:absolute;bottom:-28px;right:38px;width:72px;height:72px;background:rgba(232,169,39,.16);border-radius:50%}
+.place-name{
+  font-family:var(--display);font-size:28px;font-weight:700;
+  color:#fff;position:relative;z-index:1;letter-spacing:-.3px;
+}
+.place-dates{font-size:13px;color:rgba(255,255,255,.72);margin-top:5px;position:relative;z-index:1}
+.place-body{padding:18px 20px}
+.pl-lbl{
+  font-size:11px;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--stone);font-weight:600;margin-bottom:9px;margin-top:18px;
+}
+.pl-lbl:first-child{margin-top:0}
+.irow{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:8px 0;border-bottom:1px solid rgba(27,73,101,.07);font-size:14px;
+}
+.irow:last-child{border-bottom:none}
+.irow .il{color:var(--stone)}
+.irow .iv{color:var(--charcoal);font-weight:500;text-align:right;flex:1;margin-left:14px}
+.hl-list{list-style:none;padding:0}
+.hl-list li{
+  font-size:14px;color:var(--charcoal);padding:6px 0 6px 20px;
+  position:relative;border-bottom:1px solid rgba(27,73,101,.05);
+}
+.hl-list li:last-child{border-bottom:none}
+.hl-list li::before{content:'→';position:absolute;left:0;color:var(--terracotta);font-weight:700;font-size:13px}
+.dt{width:100%;border-collapse:collapse;font-size:13px}
+.dt th{
+  text-align:left;font-size:11px;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--stone);padding:6px 6px;border-bottom:1.5px solid rgba(27,73,101,.1);
+}
+.dt td{padding:9px 6px;border-bottom:1px solid rgba(27,73,101,.06);vertical-align:top}
+.dt tr:last-child td{border-bottom:none}
+.dt .rn{font-weight:600;color:var(--charcoal);font-size:14px}
+.dt .rno{font-size:12px;color:var(--stone);margin-top:2px}
+.map-btn-full{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:16px;padding:14px;background:var(--ocean);color:#fff;
+  border:none;border-radius:10px;font-size:15px;font-weight:600;
+  cursor:pointer;width:100%;font-family:var(--body);
+  -webkit-tap-highlight-color:transparent;transition:background .18s;
+  text-decoration:none;text-align:center;
+}
+.map-btn-full:hover{background:#256a8c}
+.tips-box{
+  background:rgba(247,235,216,.55);border:1px solid rgba(196,101,58,.16);
+  border-radius:10px;padding:14px 16px;margin-top:2px;
+}
+.tips-box li{
+  font-size:13px;color:var(--charcoal);padding:5px 0 5px 22px;
+  position:relative;line-height:1.45;
+}
+.tips-box li::before{content:'💡';position:absolute;left:0;font-size:11px;top:6px}
+
+/* ═══════════════════════════════
+   INFO TAB
+═══════════════════════════════ */
+.info-card{
+  margin:0 16px 14px;border-radius:var(--r);
+  background:var(--white);box-shadow:var(--shadow);overflow:hidden;
+}
+.ic-hdr{padding:16px 20px 14px;border-bottom:1px solid rgba(27,73,101,.08)}
+.ic-hdr h3{font-family:var(--display);font-size:20px;font-weight:700;color:var(--ocean)}
+.ic-body{padding:16px 20px}
+.emerg-card{border-left:5px solid #d93025}
+.emerg-num{
+  font-size:32px;font-weight:700;color:#d93025;text-decoration:none;
+  display:block;font-family:var(--display);line-height:1.2;
+}
+.emerg-lbl{font-size:14px;font-weight:600;color:var(--charcoal);margin-top:14px;margin-bottom:3px}
+.emerg-sub{font-size:13px;color:var(--stone)}
+a[href^="tel:"]{color:var(--azulejo);font-weight:600;text-decoration:none}
+.conf-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 0;border-bottom:1px solid rgba(27,73,101,.07);gap:10px;
+}
+.conf-row:last-child{border-bottom:none}
+.conf-lbl{font-size:13px;color:var(--stone);flex:1;line-height:1.35}
+.conf-code{font-size:18px;font-family:'Courier New',monospace;font-weight:700;color:var(--ocean);letter-spacing:.5px}
+.conf-tbd{
+  font-size:12px;font-weight:600;background:#fff3cd;color:#856404;
+  padding:4px 9px;border-radius:6px;border:1px solid #ffc107;white-space:nowrap;
+}
+.phrases-tbl{width:100%;border-collapse:collapse;font-size:14px}
+.phrases-tbl th{
+  text-align:left;font-size:11px;letter-spacing:.5px;text-transform:uppercase;
+  color:var(--stone);padding:6px 6px;border-bottom:1.5px solid rgba(27,73,101,.1);
+}
+.phrases-tbl td{padding:10px 6px;border-bottom:1px solid rgba(27,73,101,.06);vertical-align:top}
+.phrases-tbl tr:last-child td{border-bottom:none}
+.pt{font-weight:600;color:var(--ocean);font-size:15px}
+.pron{font-size:12px;color:var(--stone);font-style:italic;margin-top:2px}
+.checklist{list-style:none;padding:0}
+.checklist li{
+  display:flex;align-items:flex-start;gap:13px;padding:11px 0;
+  border-bottom:1px solid rgba(27,73,101,.06);cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.checklist li:last-child{border-bottom:none}
+.cb{
+  width:24px;height:24px;border-radius:7px;
+  border:2px solid rgba(27,73,101,.28);flex-shrink:0;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;background:#fff;
+}
+.checklist li.ck .cb{background:var(--ocean);border-color:var(--ocean);color:#fff}
+.checklist li.ck .cb::after{content:'✓';font-size:14px;font-weight:700}
+.ct{font-size:15px;color:var(--charcoal);line-height:1.4;flex:1}
+.checklist li.ck .ct{color:var(--stone);text-decoration:line-through}
+.wo-row{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:10px 0;border-bottom:1px solid rgba(27,73,101,.07);font-size:14px;
+}
+.wo-row:last-child{border-bottom:none}
+.wo-loc{font-weight:600;color:var(--charcoal)}
+.wo-temps{color:var(--stone);font-size:13px;text-align:right}
+
+/* ═══════════════════════════════
+   MAP BUTTONS
+═══════════════════════════════ */
+
+/* ═══════════════════════════════
+   FOOD TAB
+═══════════════════════════════ */
+.food-intro{
+  margin:18px 16px 0;
+  background:linear-gradient(135deg,rgba(196,101,58,.09),rgba(232,169,39,.07));
+  border:1px solid rgba(196,101,58,.2);
+  border-radius:var(--r);padding:20px 18px;
+}
+.food-intro h3{
+  font-family:var(--display);font-size:20px;font-weight:700;
+  color:var(--ocean);margin-bottom:10px;
+}
+.food-intro p{font-size:15px;color:var(--charcoal);line-height:1.65}
+
+/* Seasonal highlights */
+.fh-groups{margin:4px 16px 4px;display:flex;flex-direction:column;gap:10px}
+.fh-group{
+  background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.fh-group-title{
+  padding:12px 16px 10px;
+  font-size:12px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;
+  color:var(--terracotta);border-bottom:1px solid rgba(27,73,101,.06);
+}
+.fh-item-simple{
+  font-size:14px;color:var(--charcoal);
+  padding:8px 16px 8px 28px;
+  border-bottom:1px solid rgba(27,73,101,.04);
+  position:relative;line-height:1.45;
+}
+.fh-item-simple:last-child{border-bottom:none}
+.fh-item-simple::before{
+  content:'·';position:absolute;left:14px;color:var(--terracotta);
+  font-weight:700;font-size:18px;line-height:1.1;
+}
+
+/* Destination cards */
+.food-dest-wrap{margin:4px 16px 0}
+.food-dest-card{
+  border-radius:var(--r);overflow:hidden;margin-bottom:14px;
+  box-shadow:var(--shadow);cursor:pointer;
+  transition:box-shadow .22s,transform .22s;
+  -webkit-tap-highlight-color:transparent;
+}
+.food-dest-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.fdc-header{padding:26px 20px 22px;position:relative;overflow:hidden}
+.fdc-header.carvoeiro{
+  background:linear-gradient(150deg,#1a5e7a 0%,var(--ocean) 60%,#2d85a8 100%);
+}
+.fdc-header.lisbon{
+  background:linear-gradient(150deg,#9a3d20 0%,var(--terracotta) 60%,#d47054 100%);
+}
+.fdc-header::before{
+  content:'';position:absolute;top:-20px;right:-20px;
+  width:130px;height:130px;background:rgba(255,255,255,.12);border-radius:50%;
+}
+.fdc-header::after{
+  content:'';position:absolute;bottom:-30px;right:30px;
+  width:85px;height:85px;background:rgba(232,169,39,.2);border-radius:50%;
+}
+.fdc-emoji{font-size:42px;display:block;margin-bottom:10px;position:relative;z-index:1;line-height:1}
+.fdc-title{
+  font-family:var(--display);font-size:28px;font-weight:700;
+  color:#fff;position:relative;z-index:1;letter-spacing:-.3px;margin-bottom:5px;
+}
+.fdc-sub{font-size:14px;color:rgba(255,255,255,.78);position:relative;z-index:1;margin-bottom:12px}
+.fdc-cta{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);
+  border-radius:20px;padding:7px 16px;font-size:13px;font-weight:600;
+  color:#fff;position:relative;z-index:1;
+}
+
+/* ── FOOD MODAL ──────────────────────────────────── */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.48);
+  z-index:500;display:none;
+  align-items:flex-end;justify-content:center;
+  -webkit-tap-highlight-color:transparent;
+}
+.modal-overlay.open{display:flex}
+@keyframes slideUp{
+  from{transform:translateY(100%);opacity:.6}
+  to{transform:translateY(0);opacity:1}
+}
+.modal-sheet{
+  background:var(--sand);
+  border-radius:20px 20px 0 0;
+  width:100%;max-width:600px;
+  max-height:90vh;
+  display:flex;flex-direction:column;
+  animation:slideUp .28s cubic-bezier(.25,.8,.25,1) both;
+}
+.modal-handle{
+  width:40px;height:4px;border-radius:2px;
+  background:rgba(27,73,101,.2);
+  margin:12px auto 0;flex-shrink:0;
+}
+.modal-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px 12px;border-bottom:1px solid rgba(27,73,101,.1);flex-shrink:0;
+}
+.modal-title{font-family:var(--display);font-size:21px;font-weight:700;color:var(--ocean)}
+.modal-close{
+  background:rgba(27,73,101,.1);border:none;border-radius:50%;
+  width:34px;height:34px;font-size:16px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ocean);font-weight:700;line-height:1;
+  -webkit-tap-highlight-color:transparent;flex-shrink:0;
+}
+.modal-body{
+  overflow-y:auto;padding:12px 16px 48px;flex:1;
+  -webkit-overflow-scrolling:touch;
+}
+
+/* Restaurant cards in modal */
+.rest-cat{
+  font-size:11px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;
+  color:var(--terracotta);padding:16px 2px 8px;
+}
+.rest-cat:first-child{padding-top:6px}
+.rest-card{
+  background:var(--white);border-radius:12px;box-shadow:var(--shadow);
+  padding:13px 14px;margin-bottom:9px;
+  display:flex;align-items:flex-start;gap:12px;
+}
+.rest-info{flex:1;min-width:0}
+.rest-name{font-size:15px;font-weight:700;color:var(--charcoal);margin-bottom:4px;line-height:1.25}
+.rest-desc{font-size:13px;color:var(--stone);line-height:1.45}
+.rest-badge{
+  font-size:11px;font-weight:700;letter-spacing:.2px;
+  background:rgba(232,169,39,.2);color:var(--gold-dark);
+  border-radius:8px;padding:3px 8px;margin-top:7px;display:inline-block;
+}
+.rest-badge.book{background:rgba(196,101,58,.15);color:var(--terracotta)}
+.rest-badge.star{background:rgba(232,169,39,.3);color:#7a4d00}
+.rest-map{
+  background:var(--ocean);color:#fff;border:none;
+  border-radius:8px;padding:9px 11px;font-size:14px;font-weight:600;
+  cursor:pointer;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;
+  font-family:var(--body);transition:background .18s;
+  text-decoration:none;display:inline-flex;align-items:center;
+  margin-top:1px;
+}
+.rest-map:hover{background:#256a8c}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <h1>🇵🇹 Portugal 2026</h1>
+  <p class="sub">Bruce · Judy · Lauren &nbsp;·&nbsp; May 3–10, 2026 · Carvoeiro &amp; Lisbon</p>
+</header>
+
+<nav class="top-nav">
+  <button class="tab-btn active" id="btn-today"  onclick="switchTab('today')"><span class="ti">📅</span>Today</button>
+  <button class="tab-btn"        id="btn-daily"  onclick="switchTab('daily')"><span class="ti">🗓</span>Daily</button>
+  <button class="tab-btn"        id="btn-places" onclick="switchTab('places')"><span class="ti">📍</span>Places</button>
+  <button class="tab-btn"        id="btn-food"   onclick="switchTab('food')"><span class="ti">🍽️</span>Food</button>
+  <button class="tab-btn"        id="btn-info"   onclick="switchTab('info')"><span class="ti">ℹ️</span>Info</button>
+</nav>
+
+<main>
+
+  <!-- TODAY -->
+  <div class="tab-pane active" id="pane-today">
+    <div id="weather-wrap"></div>
+    <div id="today-wrap"></div>
+  </div>
+
+  <!-- DAILY -->
+  <div class="tab-pane" id="pane-daily">
+    <p class="sec-title">Full Itinerary</p>
+    <p class="sec-sub">8 days · Carvoeiro &amp; Lisbon</p>
+    <div id="daily-wrap"></div>
+  </div>
+
+  <!-- PLACES -->
+  <div class="tab-pane" id="pane-places">
+    <p class="sec-title">Destinations</p>
+    <p class="sec-sub">Your two home bases in Portugal</p>
+    <div id="places-wrap"></div>
+  </div>
+
+  <!-- FOOD -->
+  <div class="tab-pane" id="pane-food">
+    <p class="sec-title">Food &amp; Dining</p>
+    <p class="sec-sub">Portuguese cuisine · Spring 2026 · Algarve &amp; Lisbon</p>
+
+    <div class="food-intro">
+      <h3>🇵🇹 Eating in Portugal</h3>
+      <p>Spring in the Algarve brings a viticultural renaissance and seasonal abundance. Carvoeiro's culinary soul is rooted in its fishing village heritage — charcoal-grilled seafood, cataplana copper-pot stews, and petiscos (Portuguese tapas) shared over local wine. In Lisbon's Castelo and Alfama, centuries of tradition meet modern creativity, all within walking distance of your apartment on Rua de Santa Cruz do Castelo.</p>
+    </div>
+
+    <p class="sec-title" style="font-size:19px;padding-top:18px">What's in Season</p>
+    <div id="food-highlights-wrap"></div>
+
+    <p class="sec-title" style="font-size:19px;padding-top:14px">Dining by Destination</p>
+    <div class="food-dest-wrap" id="food-dest-wrap"></div>
+  </div>
+
+  <!-- INFO -->
+  <div class="tab-pane" id="pane-info">
+    <p class="sec-title">Trip Info</p>
+
+    <!-- Emergency -->
+    <div class="info-card emerg-card">
+      <div class="ic-hdr"><h3>🚨 Emergency</h3></div>
+      <div class="ic-body">
+        <a href="tel:112" class="emerg-num">112</a>
+        <p class="emerg-sub">Portugal Emergency Services</p>
+
+        <p class="emerg-lbl">Canadian Embassy Lisbon</p>
+        <p><a href="tel:+351213164600">+351 21 316 4600</a></p>
+        <p class="emerg-sub">Avenida da Liberdade, 196-200, 3rd Floor</p>
+        <p class="emerg-sub"><a href="mailto:lsbon@international.gc.ca">lsbon@international.gc.ca</a></p>
+
+        <p class="emerg-lbl">Emergency Watch — Ottawa (24/7)</p>
+        <p><a href="tel:+16139968885">+1 613 996 8885</a></p>
+
+        <p class="emerg-lbl">Judy's Mobile</p>
+        <p><a href="tel:+18174552595">817-455-2595</a></p>
+
+        <p class="emerg-lbl">Casas de Carvoeiro</p>
+        <p><a href="tel:+351932023829">+351 932 023 829</a></p>
+
+        <p class="emerg-lbl">Castle Inn Lisbon</p>
+        <p><a href="tel:+351968123838">+351 968 123 838</a></p>
+      </div>
+    </div>
+
+    <!-- Confirmations -->
+    <div class="info-card">
+      <div class="ic-hdr"><h3>📋 Confirmations</h3></div>
+      <div class="ic-body">
+        <div class="conf-row">
+          <span class="conf-lbl">Flights DFW→FAO — all 3 travelers<br><small>AA 132 + AA 8082 · May 3–4</small></span>
+          <span class="conf-code">OYEYZX</span>
+        </div>
+        <div class="conf-row">
+          <span class="conf-lbl">Flights LIS→DFW — Bruce + Lauren<br><small>AA 7124 + AA 6950 · May 10</small></span>
+          <span class="conf-code">LQNQIL</span>
+        </div>
+        <div class="conf-row">
+          <span class="conf-lbl">Flights LIS→DFW — Judy<br><small>Same flights, separate ticket</small></span>
+          <span class="conf-tbd">⚠️ TBD — Get this code</span>
+        </div>
+        <div class="conf-row">
+          <span class="conf-lbl">Casas de Carvoeiro<br><small>+351 932 023 829</small></span>
+          <span class="conf-code">6370738341</span>
+        </div>
+        <div class="conf-row">
+          <span class="conf-lbl">Castle Inn Lisbon<br><small>+351 968 123 838</small></span>
+          <span class="conf-code">6753823971</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checklist -->
+    <div class="info-card">
+      <div class="ic-hdr"><h3>✅ Pre-Departure Checklist</h3></div>
+      <div class="ic-body"><ul class="checklist" id="checklist"></ul></div>
+    </div>
+
+    <!-- Phrases -->
+    <div class="info-card">
+      <div class="ic-hdr"><h3>🗣️ Portuguese Phrases</h3></div>
+      <div class="ic-body">
+        <table class="phrases-tbl">
+          <thead><tr><th>English</th><th>Portuguese</th><th>Say it</th></tr></thead>
+          <tbody>
+            <tr><td>Hello</td><td><p class="pt">Olá</p></td><td><p class="pron">oh-LAH</p></td></tr>
+            <tr><td>Good morning</td><td><p class="pt">Bom dia</p></td><td><p class="pron">bom DEE-ah</p></td></tr>
+            <tr><td>Good evening</td><td><p class="pt">Boa noite</p></td><td><p class="pron">BOH-ah NOY-teh</p></td></tr>
+            <tr><td>Please</td><td><p class="pt">Por favor</p></td><td><p class="pron">por fah-VOR</p></td></tr>
+            <tr><td>Thank you</td><td><p class="pt">Obrigado/a</p></td><td><p class="pron">oh-bree-GAH-doo/dah</p></td></tr>
+            <tr><td>Yes / No</td><td><p class="pt">Sim / Não</p></td><td><p class="pron">seem / nowng</p></td></tr>
+            <tr><td>Excuse me</td><td><p class="pt">Com licença</p></td><td><p class="pron">kohm lee-SEN-sah</p></td></tr>
+            <tr><td>The check, please</td><td><p class="pt">A conta, por favor</p></td><td><p class="pron">ah KON-tah por fah-VOR</p></td></tr>
+            <tr><td>How much?</td><td><p class="pt">Quanto custa?</p></td><td><p class="pron">KWAN-too KOOSH-tah</p></td></tr>
+            <tr><td>Where is…?</td><td><p class="pt">Onde fica…?</p></td><td><p class="pron">OHN-deh FEE-kah</p></td></tr>
+            <tr><td>Water</td><td><p class="pt">Água</p></td><td><p class="pron">AH-gwah</p></td></tr>
+            <tr><td>Wine / Beer</td><td><p class="pt">Vinho / Cerveja</p></td><td><p class="pron">VEEN-yoo / ser-VAY-zhah</p></td></tr>
+            <tr><td>Cheers!</td><td><p class="pt">Saúde!</p></td><td><p class="pron">sah-OO-deh</p></td></tr>
+            <tr><td>Delicious</td><td><p class="pt">Delicioso</p></td><td><p class="pron">deh-lee-see-OH-zoo</p></td></tr>
+            <tr><td>Help!</td><td><p class="pt">Ajuda!</p></td><td><p class="pron">ah-ZHOO-dah</p></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Weather Overview -->
+    <div class="info-card">
+      <div class="ic-hdr"><h3>🌤️ Weather Overview (May)</h3></div>
+      <div class="ic-body">
+        <div class="wo-row"><span class="wo-loc">Carvoeiro (Algarve)</span><span class="wo-temps">Highs 70–75°F · Lows 55–60°F</span></div>
+        <div class="wo-row"><span class="wo-loc">Conditions</span><span class="wo-temps">Mostly sunny · Strong UV</span></div>
+        <div class="wo-row"><span class="wo-loc">Lisbon</span><span class="wo-temps">Highs 70–75°F · Lows 57–62°F</span></div>
+        <div class="wo-row"><span class="wo-loc">Conditions</span><span class="wo-temps">Sunny, breezy</span></div>
+        <p style="font-size:13px;color:#6b4c00;background:#fff8e6;border:1px solid rgba(232,169,39,.35);border-radius:8px;padding:11px 13px;margin-top:14px;line-height:1.45">⚠️ May sun is very strong — sunscreen essential even on cloudy days. Strong UV throughout Algarve and Lisbon.</p>
+      </div>
+    </div>
+
+  </div><!-- /info -->
+
+</main>
+
+<!-- FOOD MODAL -->
+<div id="food-modal" class="modal-overlay" onclick="closeFoodModal()">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-hdr">
+      <span class="modal-title" id="modal-title">Dining Guide</span>
+      <button class="modal-close" onclick="closeFoodModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+
+// Escape single quotes so names are safe inside onclick='...' attributes
+const esc = s => s.replace(/'/g, "\\'")
+
+// AA 132 DFW departure: Sunday May 3 2026 at 7:10 PM CDT (UTC-5)
+const DEPARTURE = new Date('2026-05-03T19:10:00-05:00')
+// Trip ends after May 10
+const TRIP_END = new Date('2026-05-11T00:00:00-05:00')
+let countdownInterval = null
+
+// ── WEATHER ICONS / DESCRIPTIONS ──────────────────────────
+const W_ICON = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌦️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'🌨️',80:'🌦️',81:'🌧️',82:'🌧️',95:'⛈️',96:'⛈️',99:'⛈️'}
+const W_DESC = {0:'Clear',1:'Mainly Clear',2:'Partly Cloudy',3:'Overcast',45:'Foggy',48:'Foggy',51:'Drizzle',53:'Drizzle',55:'Drizzle',61:'Light Rain',63:'Rain',65:'Heavy Rain',71:'Snow',73:'Snow',75:'Snow',80:'Showers',81:'Showers',82:'Heavy Showers',95:'Thunderstorm',96:'Thunderstorm',99:'Thunderstorm'}
+
+// ── FORECAST CACHE ─────────────────────────────────────────
+// { 'YYYY-MM-DD': { max, min, code } }
+const forecastCache = {}
+
+// ── TRIP DATA ──────────────────────────────────────────────
+const tripData = [
+  {
+    date: '2026-05-03', dayNum: 1,
+    fullDay: 'Sunday, May 3', location: 'Dallas → In Transit',
+    emoji: '✈️', weather: null, sunset: null,
+    weatherCoords: null,
+    warning: null,
+    accommodation: null,
+    activities: [
+      {
+        title: '✈️ Flight AA 132 — DFW → Dublin (Overnight)',
+        details: [
+          'Depart 7:10 PM from DFW',
+          'Arrive 9:45 AM+1 at Dublin (DUB)',
+          'Duration: 8h 35m · Economy · Seats: 15D, 15E, 15H',
+          'Confirmation: OYEYZX — all 3 travelers on same ticket',
+          '2-hour layover in Dublin before connecting to Faro'
+        ]
+      },
+      {
+        title: '📋 Pre-Departure Checklist',
+        details: [
+          'Passports valid for 6+ months beyond May 3',
+          'Complete Casas de Carvoeiro online check-in form (by April 24)',
+          'Download offline maps: Carvoeiro, Lagoa, Ferragudo, Lisbon',
+          'Walking shoes packed — no flip-flops for cliff paths or cobblestones',
+          'High-SPF sunscreen (May Algarve UV is intense)',
+          'Light layers for evenings',
+          'Phone chargers + EU adapter (Type F plug)',
+          'Notify credit card companies of Portugal travel'
+        ]
+      }
+    ],
+    dining: []
+  },
+  {
+    date: '2026-05-04', dayNum: 2,
+    fullDay: 'Monday, May 4', location: 'Dublin → Faro → Carvoeiro',
+    emoji: '🌊', weather: '~72°F · Sunny', sunset: null,
+    weatherCoords: { lat: 37.0942, lng: -8.4728 },
+    warning: null,
+    accommodation: { name: 'Casas de Carvoeiro', night: 'Night 1 of 4', lat: 37.0942, lng: -8.4728 },
+    activities: [
+      {
+        title: '✈️ Connection AA 8082 (Aer Lingus) — Dublin → Faro',
+        details: [
+          'Depart 11:45 AM from Dublin (DUB)',
+          'Arrive 2:50 PM at Faro (FAO) · Duration: 3h 5m · Economy',
+          'Seats not yet assigned — check in online 24h before',
+          '2-hour Dublin layover is comfortable'
+        ]
+      },
+      {
+        title: '🚕 Private Transfer: Faro Airport → Carvoeiro',
+        details: [
+          'Pre-book private transfer for 3 adults + luggage',
+          'Duration: ~55–60 minutes · Cost: ~€65–66',
+          'Route: EN125 through Algarve countryside'
+        ]
+      },
+      {
+        title: '🏠 Check-in: Casas de Carvoeiro by Sevencollection',
+        details: [
+          'Address: Rampa do Mato Serrão, Urb. Algarvesol A-9, 8400-536 Carvoeiro',
+          'Check-in: 4:00 PM – 11:00 PM · Entry: lockbox code sent day before',
+          'Phone: <a href="tel:+351932023829">+351 932 023 829</a>',
+          'Superior Two-Bedroom Apartment · 4 nights · Total: €793.68',
+          'Confirmation: 6370738341'
+        ]
+      },
+      {
+        title: '🌅 Evening: Settle In & First Walk',
+        details: [
+          'Unpack and rest — you\'ve been traveling 20+ hours',
+          'Short stroll to Praia de Carvoeiro (~10 min downhill)',
+          'Light dinner at a nearby restaurant',
+          'Early to bed — Portugal is UTC+1, 6 hours ahead of Dallas'
+        ]
+      }
+    ],
+    dining: [
+      { name: 'Local Carvoeiro restaurants', type: 'Light first-night dinner · town center', lat: 37.0942, lng: -8.4728 }
+    ]
+  },
+  {
+    date: '2026-05-05', dayNum: 3,
+    fullDay: 'Tuesday, May 5', location: 'Carvoeiro',
+    emoji: '🏖️', weather: '~73°F · Sunny, light breeze', sunset: '~8:30 PM',
+    weatherCoords: { lat: 37.0942, lng: -8.4728 },
+    warning: null,
+    accommodation: { name: 'Casas de Carvoeiro', night: 'Night 2 of 4', lat: 37.0942, lng: -8.4728 },
+    activities: [
+      {
+        title: '🌅 Morning: Carvoeiro Boardwalk & Algar Seco',
+        details: [
+          '600m raised wooden boardwalk from Fort of Nossa Senhora da Encarnação to Algar Seco',
+          'See the "Boneca Eyes" — two natural windows in the rock looking out to sea',
+          'Explore labyrinth of caves, tunnels, and natural pools at Algar Seco',
+          'Coffee at Boneca Bar — panoramic clifftop views',
+          '~600m from apartment · Duration: 1.5–2 hours',
+          'Footwear: walking shoes required — limestone is slippery'
+        ]
+      },
+      {
+        title: '🚤 Afternoon: Benagil Cave Boat Tour',
+        details: [
+          'Recommended: <a href="https://carvoeirocaves.com" target="_blank">carvoeirocaves.com</a> — departs Carvoeiro Beach',
+          '90-min tour (Benagil + Praia da Marinha arches): €30/person',
+          '60-min tour (Benagil only): €25/person',
+          'Small boats max 10–12 people — can enter cave interiors',
+          'Departs every 30 min, 10:30 AM–6:30 PM',
+          'Alternative: <a href="https://carvoeirotours.com" target="_blank">carvoeirotours.com</a> · 30+ yrs experience · ~€30/adult · 75 min',
+          'Tip: book morning — afternoon seas can be rougher',
+          'Lifejackets provided · leave shoes on shore'
+        ]
+      }
+    ],
+    dining: [
+      { name: 'Jota Lita', type: 'Traditional grilled seafood · family-run · <span class="book">Book ahead</span>', lat: 37.0948, lng: -8.4697 }
+    ]
+  },
+  {
+    date: '2026-05-06', dayNum: 4,
+    fullDay: 'Wednesday, May 6', location: 'Carvoeiro + Ferragudo Day Trip',
+    emoji: '🚂', weather: '~73°F · Sunny', sunset: '~8:31 PM',
+    weatherCoords: { lat: 37.0942, lng: -8.4728 },
+    warning: null,
+    accommodation: { name: 'Casas de Carvoeiro', night: 'Night 3 of 4', lat: 37.0942, lng: -8.4728 },
+    activities: [
+      {
+        title: '🌅 Morning: Beach & Coffee',
+        details: [
+          'Relaxed morning at Praia de Carvoeiro or Praia do Paraíso',
+          'Paraíso: 350m from main beach — winding staircase cut into cliffs, small secluded cove',
+          'Coffee at a waterfront café before the 11:00 AM land train'
+        ]
+      },
+      {
+        title: '🚂 Ferragudo Day Trip via Land Train',
+        details: [
+          'Be at Carvoeiro main square by 10:45 AM',
+          '11:00 AM: Land Train departs · ~€12.50/person return',
+          'Ride is bumpy (no suspension) but scenic — villas, gardens, infinity pools',
+          'Stops at Praia do Molhe: 10-min photo stop, breakwater + lighthouse views',
+          '12:00 PM: Arrive Ferragudo — whitewashed fishing village on the Arade estuary',
+          'Explore: narrow cobbled backstreets, colorful buildings, blooming balconies',
+          'Walk to Igreja Nossa Senhora da Conceição for panoramic views',
+          'View Fort of São João do Arade from waterfront (private, exterior only)',
+          'Browse azulejo tiles, antiques, canned seafood at Maria do Mar (great souvenir)',
+          '2:00 PM: Return Land Train · 2:30 PM: Back in Carvoeiro'
+        ]
+      }
+    ],
+    dining: [
+      { name: 'Sueste or Borda do Cais', type: 'Ferragudo waterfront · fish by the kg grilled over coals', lat: 37.1135, lng: -8.5362 },
+      { name: 'V5 Petiscaria & Bar', type: 'Ferragudo · highly rated Portuguese petiscos', lat: 37.1240, lng: -8.5283 },
+      { name: 'Touriga Wine & Dine', type: 'Evening · Portuguese wines by glass + petiscos · pork cheeks, octopus', lat: 37.0950, lng: -8.4695 }
+    ]
+  },
+  {
+    date: '2026-05-07', dayNum: 5,
+    fullDay: 'Thursday, May 7', location: 'Carvoeiro',
+    emoji: '🥾', weather: '~74°F · Sunny', sunset: '~8:32 PM',
+    weatherCoords: { lat: 37.0942, lng: -8.4728 },
+    warning: null,
+    accommodation: { name: 'Casas de Carvoeiro', night: 'Night 4 of 4', lat: 37.0942, lng: -8.4728, packNote: 'Pack tonight!' },
+    activities: [
+      {
+        title: '🥾 Morning: Coastal Walk to Farol de Alfanzina',
+        details: [
+          'Walk from Carvoeiro along clifftops to Alfanzina Lighthouse',
+          '~45 min each way · easy, mostly flat coastal path',
+          'Pass Praia do Vale de Centeanes en route',
+          'Starter section of the famous Seven Hanging Valleys trail',
+          'Carry water and sunscreen — no shops on the cliff path'
+        ]
+      },
+      {
+        title: '🛍️ Midday: Shopping & Lunch in Carvoeiro',
+        details: [
+          'Browse local craft boutiques: ceramics, summer fashion, beachwear',
+          'Many shops close for midday break — shop late morning or early evening',
+          'Lunch: Onze (postcard ocean view), Mar d\'Fora (clifftop above Paraíso), A Vela (Mediterranean/Portuguese)'
+        ]
+      },
+      {
+        title: '🌊 Afternoon: Beach Time',
+        details: [
+          'Praia de Carvoeiro or Praia do Vale de Centeanes (~20 min walk, quieter)',
+          'Swim, relax, read',
+          'Last afternoon on the Algarve — savor it'
+        ]
+      }
+    ],
+    dining: [
+      { name: 'Onze Restaurant', type: 'Lunch · postcard ocean view · fresh seafood', lat: 37.0938, lng: -8.4701 },
+      { name: 'Lighthouse Grill & Bar', type: 'Dinner option · 180° sea views · live music at golden hour', lat: 37.0945, lng: -8.4720 },
+      { name: 'Boneca Bar', type: 'Drinks option · sunset IN the Algar Seco rocks', lat: 37.0936, lng: -8.4684 },
+      { name: 'Etxea', type: 'Dinner option · Basque-Portuguese fusion · creative tasting menus', lat: 37.0943, lng: -8.4705 }
+    ]
+  },
+  {
+    date: '2026-05-08', dayNum: 6,
+    fullDay: 'Friday, May 8', location: 'Carvoeiro → Lisbon',
+    emoji: '🚆', weather: 'Carvoeiro ~73°F · Lisbon ~72°F', sunset: null,
+    weatherCoords: null,
+    warning: '⚠️ Check-out by 10:00 AM sharp · Train to Lisbon today · Have bags packed and ready',
+    accommodation: { name: 'Castle Inn Lisbon Apartments', night: 'Night 1 of 2', lat: 38.7123, lng: -9.1335 },
+    activities: [
+      {
+        title: '📦 Morning: Check-out by 10:00 AM',
+        details: [
+          'Vacate apartment by 10:00 AM — no exceptions',
+          'Return keys to lockbox',
+          'Have all bags fully packed — no luggage storage on-site'
+        ]
+      },
+      {
+        title: '🚕 Taxi to Estômbar-Lagoa Station',
+        details: [
+          'Taxi or Uber from Carvoeiro (~6 km, 10–15 min)',
+          'Estômbar-Lagoa recommended (closer than Parchal at 7.7 km)',
+          'Book taxi the night before to guarantee pickup'
+        ]
+      },
+      {
+        title: '🚆 Train: Algarve → Lisbon',
+        details: [
+          'Route: Estômbar-Lagoa → Tunes (Regional, ~20 min) then Tunes → Lisboa Oriente (Intercidades, ~2.5–3h)',
+          'Book at <a href="https://www.cp.pt/passageiros/en" target="_blank">cp.pt</a> — assigned seating, book well in advance',
+          'Total journey: ~3–3.5 hours including connection',
+          'Tickets: ~€22–30/person second class',
+          '⭐ Bruce (65+): 50% senior discount — carry valid ID',
+          '⭐ Lauren (under 25): 25% discount — carry valid ID',
+          'Connection at Tunes is timed — same platform, no steps'
+        ]
+      },
+      {
+        title: '🚕 Taxi: Lisboa Oriente → Castle Inn',
+        details: [
+          'Take taxi directly from Oriente station',
+          'Destination: Rua de Santa Cruz do Castelo, 52',
+          'Restricted vehicle zone — taxis and buses ONLY on this street',
+          'Do NOT attempt to walk with luggage (steep cobblestones uphill)',
+          'Trip: ~15–20 min by taxi'
+        ]
+      },
+      {
+        title: '🏠 Check-in: Castle Inn Lisbon Apartments',
+        details: [
+          'Address: Rua de Santa Cruz do Castelo, 52, Santa Maria Maior, 1100-480 Lisbon',
+          'Check-in from 4:00 PM · Entry: door code sent via email',
+          'Must present: Photo ID + credit card',
+          'Phone: <a href="tel:+351968123838">+351 968 123 838</a>',
+          'One-Bedroom Apartment with Balcony · 2 nights · Total: €473.29 · Confirmation: 6753823971',
+          'Steps from São Jorge Castle — you\'re in medieval Lisbon'
+        ]
+      },
+      {
+        title: '🌅 Evening: First Lisbon Walk',
+        details: [
+          'Walk to Miradouro das Portas do Sol for sunset views over Alfama and the Tagus',
+          'For Bruce & Judy: notice what\'s changed since 1991 and 1995',
+          'For Lauren: welcome to one of Europe\'s oldest neighborhoods'
+        ]
+      }
+    ],
+    dining: [
+      { name: 'Alfama neighborhood tascas', type: 'Evening · local restaurants in Castelo district', lat: 38.7123, lng: -9.1335 }
+    ]
+  },
+  {
+    date: '2026-05-09', dayNum: 7,
+    fullDay: 'Saturday, May 9', location: 'Lisbon',
+    emoji: '🏰', weather: '~73°F · Sunny', sunset: '~8:36 PM',
+    weatherCoords: { lat: 38.7123, lng: -9.1335 },
+    warning: '⚠️ Arrange airport taxi TONIGHT · You depart at 4:30 AM tomorrow · Pack everything before dinner',
+    accommodation: { name: 'Castle Inn Lisbon Apartments', night: 'Night 2 of 2', lat: 38.7123, lng: -9.1335 },
+    activities: [
+      {
+        title: '🏰 Morning: São Jorge Castle (9 AM — arrive early!)',
+        details: [
+          'Steps from your apartment — arrive at opening (9 AM) to beat crowds',
+          'Explore battlements, towers, and the fortified keep',
+          'Panoramic views over all Lisbon, the Tagus, and the 25 de Abril bridge',
+          'Watch for the castle\'s resident peacocks',
+          'Camera Obscura in Ulysses Tower — check schedule at entry',
+          'Small museum with Moorish-period archaeological finds',
+          'Duration: 1.5–2 hours',
+          'For Lauren: dates to the Moors (11th century), conquered by Portugal\'s first king in 1147'
+        ]
+      },
+      {
+        title: '🛍️ Late Morning: Feira da Ladra Flea Market',
+        details: [
+          'Location: Campo de Santa Clara (15-min walk downhill from castle)',
+          'Hours: Saturday 9 AM–5 PM — Lisbon\'s historic flea market (13th century)',
+          'Browse antiques, vintage tiles, records, curiosities — great souvenirs',
+          'Lucky timing — only open on Saturdays and Tuesdays!'
+        ]
+      },
+      {
+        title: '⛪ Midday: Alfama Wander Downhill',
+        details: [
+          'São Vicente de Fora Monastery: world\'s most extensive baroque tile collection, rooftop views, tomb of Catherine of Bragança',
+          'Miradouro de Santa Luzia: tiled viewpoint, bougainvillea, Alfama rooftop views',
+          'Lisbon Cathedral (Sé): Romanesque, 1147 — Lisbon\'s oldest church',
+          'Try ginjinha (sweet cherry liqueur) from a street vendor',
+          'Get lost in the narrow streets — that\'s the whole point',
+          'Duration: 2–3 hours of wandering'
+        ]
+      },
+      {
+        title: '🌆 Afternoon: Optional Extensions',
+        details: [
+          'Praça do Comércio: grand waterfront square on the Tagus',
+          'Rua Augusta: pedestrian shopping street through Baixa',
+          'Tram 28: from Martim Moniz back up through Alfama — iconic Lisbon',
+          '⚠️ Tram 28: beware pickpockets — hold bags close, phone in front pocket'
+        ]
+      },
+      {
+        title: '🎵 Evening: Fado & Final Dinner',
+        details: [
+          'Alfama is the birthplace of Fado — tonight is the night',
+          'Book a Fado dinner at a local casa de fado',
+          'Ask your host or restaurant to call an airport taxi for 4:30 AM',
+          'Set alarm: leave apartment by 4:30–5:00 AM tomorrow',
+          'Pack EVERYTHING tonight — no time in the morning'
+        ]
+      }
+    ],
+    dining: [
+      { name: 'Petisqueira Conqvistador', type: 'Lunch · excellent Portuguese petiscos (tapas)', lat: 38.7135, lng: -9.1310 },
+      { name: 'Farol de Santa Luzia', type: 'Lunch option · fresh octopus · river views', lat: 38.7133, lng: -9.1318 },
+      { name: 'Casa de Fado in Alfama', type: 'Evening · Fado dinner with live performance · <span class="book">Book ahead</span>', lat: 38.7120, lng: -9.1340 }
+    ]
+  },
+  {
+    date: '2026-05-10', dayNum: 8,
+    fullDay: 'Sunday, May 10', location: 'Lisbon → London → Dallas',
+    emoji: '🏠', weather: null, sunset: null,
+    weatherCoords: null,
+    warning: '🚨 EARLY DEPARTURE — Leave apartment by 4:30 AM · Taxi to Lisbon Airport (LIS) · Flight at 7:20 AM',
+    warningRed: true,
+    accommodation: null,
+    activities: [
+      {
+        title: '⚠️ Leave Apartment by 4:30–5:00 AM',
+        details: [
+          'Taxi arranged the night before — confirm pickup time',
+          'Self-checkout: leave door as instructed, no staff needed at this hour',
+          'Lisbon Airport (LIS) is ~15 min by taxi from Castelo district',
+          'Be at airport by 5:00 AM for 7:20 AM flight'
+        ]
+      },
+      {
+        title: '✈️ Flight 1 — AA 7124 (British Airways): Lisbon → London',
+        details: [
+          'Depart 7:20 AM from LIS · Arrive 10:20 AM at LHR',
+          'Duration: 3h 0m · Economy',
+          '2h 35m layover at Heathrow'
+        ]
+      },
+      {
+        title: '✈️ Flight 2 — AA 6950 (British Airways): London → Dallas',
+        details: [
+          'Depart 12:55 PM from LHR · Arrive 5:05 PM at DFW',
+          'Duration: 10h 10m · Economy',
+          '⚠️ Bruce + Lauren: Confirmation LQNQIL',
+          '⚠️ Judy: SEPARATE TICKET — confirmation TBD',
+          'Same flights, different bookings — manage all three boarding passes',
+          'Total return flights (Bruce + Lauren): $1,620.26'
+        ]
+      }
+    ],
+    dining: []
+  }
+]
+
+// ── PLACES DATA ────────────────────────────────────────────
+const placesData = [
+  {
+    name: 'CARVOEIRO',
+    region: 'Algarve, Southern Portugal',
+    dates: 'May 4–8 · 4 nights',
+    lat: 37.0942, lng: -8.4728,
+    hotel: 'Casas de Carvoeiro by Sevencollection',
+    hotelAddress: 'Rampa do Mato Serrão, Urb. Algarvesol A-9, 8400-536 Carvoeiro',
+    hotelPhone: '+351 932 023 829',
+    hotelConf: '6370738341',
+    hotelTotal: '€793.68 · Superior Two-Bedroom Apartment',
+    weather: 'Highs 70–75°F · Lows 55–60°F · Mostly sunny · Strong UV',
+    sunset: '~8:28–8:32 PM',
+    character: 'Small clifftop fishing village · golden beaches · dramatic sea caves',
+    highlights: [
+      'Carvoeiro Boardwalk (600m clifftop) & Algar Seco "Boneca Eyes"',
+      'Benagil Cave boat tour departing Carvoeiro Beach',
+      'Ferragudo day trip via Land Train (~€12.50 return)',
+      'Seven Hanging Valleys trail — starter section to Alfanzina',
+      'Farol de Alfanzina lighthouse walk (45 min each way)',
+      'Praia do Paraíso — hidden cove via cliff staircase',
+      'Praia do Vale de Centeanes — quieter beach, 20 min walk'
+    ],
+    dining: [
+      { name: 'Jota Lita', style: 'Traditional grilled seafood', note: 'Family-run · Estrada do Farol · book ahead', lat: 37.0948, lng: -8.4697 },
+      { name: 'Touriga Wine & Dine', style: 'Wine bar + petiscos', note: 'Portuguese wines · braised pork cheeks', lat: 37.0950, lng: -8.4695 },
+      { name: 'Boneca Bar', style: 'Drinks / casual', note: 'IN the Algar Seco rocks · sunset views', lat: 37.0936, lng: -8.4684 },
+      { name: 'Onze Restaurant', style: 'Seafood', note: 'Postcard ocean view · professional service', lat: 37.0938, lng: -8.4701 },
+      { name: 'Mar d\'Fora', style: 'Seafood', note: 'Clifftop above Paraíso Beach', lat: 37.0939, lng: -8.4715 },
+      { name: 'Lighthouse Grill & Bar', style: 'International', note: '180° sea views · live music · golden hour', lat: 37.0945, lng: -8.4720 },
+      { name: 'Etxea', style: 'Basque-Portuguese fusion', note: 'Creative tasting menus · art-filled setting', lat: 37.0943, lng: -8.4705 },
+      { name: 'A Vela', style: 'Mediterranean/Portuguese', note: 'Heartfelt cooking · short walk from center', lat: 37.0941, lng: -8.4710 },
+      { name: 'Donna Maria', style: 'Casual', note: 'Dinner on the beach · sunset views', lat: 37.0942, lng: -8.4700 }
+    ],
+    tips: [
+      'Apartment is in Mato Serrão — boardwalk & Algar Seco are your backyard',
+      'Walking shoes essential — limestone cliffs are rough and slippery',
+      'Carry water on cliff walks — no shops once on the paths',
+      'Strong UV — high-SPF sunscreen mandatory even on hazy days',
+      'Many shops close for midday break — shop late morning or early evening',
+      'Carvoeiro has no train station — nearest is Estômbar-Lagoa (6 km)'
+    ]
+  },
+  {
+    name: 'LISBON',
+    region: 'Santa Maria Maior · Castelo/Alfama',
+    dates: 'May 8–10 · 2 nights',
+    lat: 38.7123, lng: -9.1335,
+    hotel: 'Castle Inn Lisbon Apartments',
+    hotelAddress: 'Rua de Santa Cruz do Castelo, 52, Santa Maria Maior, 1100-480 Lisbon',
+    hotelPhone: '+351 968 123 838',
+    hotelConf: '6753823971',
+    hotelTotal: '€473.29 · One-Bedroom with Balcony',
+    weather: 'Highs 70–75°F · Lows 57–62°F · Sunny, breezy',
+    sunset: '~8:35–8:37 PM',
+    character: 'Medieval hilltop neighborhood · birthplace of Fado · azulejo tiles everywhere',
+    highlights: [
+      'São Jorge Castle — steps from your apartment (11th century)',
+      'Alfama\'s medieval labyrinth of streets',
+      'Miradouros: Portas do Sol, Santa Luzia, Graça, Senhora do Monte',
+      'Feira da Ladra flea market (Saturday — lucky timing!)',
+      'São Vicente de Fora: baroque tiles + rooftop views',
+      'Lisbon Cathedral (Sé) — oldest church in Lisbon, 1147',
+      'Tram 28 through the old neighborhoods',
+      'Fado music in Alfama — the birthplace',
+      'Ginjinha cherry liqueur tasting',
+      'Praça do Comércio waterfront square'
+    ],
+    dining: [
+      { name: 'Petisqueira Conqvistador', style: 'Petiscos', note: 'Excellent Portuguese small plates', lat: 38.7135, lng: -9.1310 },
+      { name: 'Farol de Santa Luzia', style: 'Seafood', note: 'Fresh octopus · views', lat: 38.7133, lng: -9.1318 },
+      { name: 'Casas de Fado (Alfama)', style: 'Fado dinner', note: 'Live Fado with dinner · book ahead · unmissable', lat: 38.7120, lng: -9.1340 }
+    ],
+    tips: [
+      'Apartment is in a restricted zone — taxis and buses ONLY to your street',
+      'Do NOT walk from Oriente station with luggage — steep cobblestones',
+      'Wear sturdy shoes — cobblestones everywhere, very steep hills',
+      'Start at the top (castle) and work downhill through Alfama',
+      'Saturday = Feira da Ladra flea market — perfect timing',
+      'Tram 28: hold bags close, phone in front pocket — pickpocket hotspot',
+      'Arrange airport taxi the night before — you leave at 4:30 AM!'
+    ]
+  }
+]
+
+// ── CHECKLIST ──────────────────────────────────────────────
+const checklistItems = [
+  { id: 'cl1', text: 'Complete Carvoeiro online check-in form (by April 24)' },
+  { id: 'cl2', text: 'Book train tickets Estômbar-Lagoa → Lisbon at cp.pt' },
+  { id: 'cl3', text: 'Book Benagil boat tour at carvoeirocaves.com' },
+  { id: 'cl4', text: 'Book Faro airport → Carvoeiro private transfer' },
+  { id: 'cl5', text: 'Download offline maps (Carvoeiro, Lagoa, Ferragudo, Lisbon)' },
+  { id: 'cl6', text: 'Notify credit card companies of Portugal travel' },
+  { id: 'cl7', text: 'Arrange Lisbon airport taxi for May 10 (book night before)' },
+  { id: 'cl8', text: 'Pack: walking shoes, sunscreen, EU adapter (Type F), evening layers' },
+  { id: 'cl9', text: 'Get Judy\'s return flight confirmation code' }
+]
+
+// ── WEATHER FETCHING ───────────────────────────────────────
+async function fetchCurrentWeather() {
+  const wrap = document.getElementById('weather-wrap')
+  wrap.innerHTML = `<div class="weather-widget loading">
+    <div class="wt-top">
+      <div><p class="wt-loc">CARVOEIRO</p><div class="wt-temp">--<span class="wt-unit">°F</span></div></div>
+      <div class="wt-icon">🌤️</div>
+    </div>
+  </div>`
+
+  try {
+    const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=37.0942&longitude=-8.4728&current_weather=true&temperature_unit=fahrenheit')
+    if (!r.ok) throw new Error('Weather API error')
+    const d = await r.json()
+    const temp = Math.round(d.current_weather.temperature)
+    const code = d.current_weather.weathercode
+    const icon = W_ICON[code] || '🌤️'
+    const desc = W_DESC[code] || 'Clear'
+    wrap.innerHTML = `<div class="weather-widget loaded">
+      <div class="wt-top">
+        <div>
+          <p class="wt-loc">CARVOEIRO</p>
+          <div class="wt-temp">${temp}<span class="wt-unit">°F</span></div>
+          <p class="wt-desc">${desc}</p>
+        </div>
+        <div class="wt-icon">${icon}</div>
+      </div>
+      <a href="weather://" class="wt-link">Open Weather →</a>
+    </div>`
+  } catch(e) {
+    wrap.innerHTML = `<div class="weather-widget loaded">
+      <div class="wt-top">
+        <div><p class="wt-loc">CARVOEIRO</p><div class="wt-temp">--<span class="wt-unit">°F</span></div><p class="wt-desc">Unavailable</p></div>
+        <div class="wt-icon">🌤️</div>
+      </div>
+      <a href="weather://" class="wt-link">Open Weather →</a>
+    </div>`
+  }
+}
+
+// Fetch daily forecast for both locations, cache by date
+async function fetchDailyForecasts() {
+  const locations = [
+    { name: 'carvoeiro', lat: 37.0942, lng: -8.4728 },
+    { name: 'lisbon',    lat: 38.7123, lng: -9.1335 }
+  ]
+  const url = (lat, lng) =>
+    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,temperature_2m_min,weathercode&temperature_unit=fahrenheit&timezone=auto&forecast_days=16`
+
+  try {
+    const results = await Promise.all(locations.map(l => fetch(url(l.lat, l.lng)).then(r => r.json())))
+    results.forEach((data, i) => {
+      const loc = locations[i]
+      data.daily.time.forEach((date, idx) => {
+        const key = `${date}:${loc.name}`
+        forecastCache[key] = {
+          max: Math.round(data.daily.temperature_2m_max[idx]),
+          min: Math.round(data.daily.temperature_2m_min[idx]),
+          code: data.daily.weathercode[idx]
+        }
+      })
+    })
+  } catch(e) { /* silent — fall back to static weather strings */ }
+}
+
+function getWeatherChip(day) {
+  if (!day.weatherCoords) return ''
+  const loc = (day.weatherCoords.lat > 38) ? 'lisbon' : 'carvoeiro'
+  const key = `${day.date}:${loc}`
+  const f = forecastCache[key]
+  if (f) {
+    const icon = W_ICON[f.code] || '🌤️'
+    return `<span class="chip-weather">${icon} ${f.max}°<span style="opacity:.65">/${f.min}°F</span></span>`
+  }
+  // fallback to static string
+  return day.weather ? `<span class="chip">🌡 ${day.weather}</span>` : ''
+}
+
+// ── FOOD DATA ─────────────────────────────────────────────
+const seasonalHighlights = [
+  {
+    icon: '🦑', title: 'Seafood & Petiscos',
+    items: [
+      'Charcoal-grilled sardines & sea bass — the Algarve\'s soul',
+      'Cataplana de marisco — seafood stew in a hammered copper pot (lobster, clams, squid)',
+      'Conquilhas à Algarvia — clams with chouriço, garlic & fresh coriander',
+      'Scarlet prawns — celebrated local delicacy, best at fine-dining venues',
+      'Octopus — grilled or as petisco sharing plates at wine bars'
+    ]
+  },
+  {
+    icon: '🍖', title: 'Meat & Sharing Plates',
+    items: [
+      'Braised pork cheeks (bochechas de porco) — slow-cooked until meltingly tender',
+      'Leitão (suckling pig) — roasted up to 24 hours, crispy skin, tender meat',
+      'Enchidos & chouriço — artisan cured sausages, staple of petiscos menus',
+      'Peixinhos da horta — green bean tempura, a vegetarian petisco classic'
+    ]
+  },
+  {
+    icon: '🍓', title: 'Spring Produce (May Highlights)',
+    items: [
+      'Algarve strawberries — exceptionally sweet and ruby-red, featured in tarts & sorbets',
+      'Orange blossom & fresh-squeezed juice — breakfast staple across the region',
+      'Broad beans & peas — found in rustic stews and spring side dishes'
+    ]
+  },
+  {
+    icon: '🍮', title: 'Sweets & Spirits',
+    items: [
+      'Pastéis de nata — custard tarts, best warm from a pastelaria oven',
+      'Dom Rodrigos — Algarve specialty: sweet egg threads, almonds & cinnamon in colorful foil',
+      'Aguardente de Medronho — potent arbutus-berry firewater, finish a meal like a local',
+      'Ginjinha — sweet cherry liqueur, sip it from a vendor in Alfama'
+    ]
+  }
+]
+
+const foodData = {
+  carvoeiro: {
+    title: '🏖️ Carvoeiro Dining',
+    categories: [
+      {
+        label: '🌊 Ocean Views',
+        restaurants: [
+          { name: 'Boneca Bar', desc: 'Clifftop terrace literally IN the Algar Seco rock formations · Premier sunset spot · Steps from end of your boardwalk', badge: '🌅 Sunset Gem', lat: 37.0936, lng: -8.4684 },
+          { name: 'Onze Restaurant', desc: 'Postcard-quality ocean view · Highly regarded for fresh seafood and professional service', badge: null, lat: 37.0938, lng: -8.4701 },
+          { name: 'Mar d\'Fora', desc: 'Perched atop cliffs overlooking Praia do Paraíso · Dramatic coastal vistas, 350m from main beach', badge: null, lat: 37.0939, lng: -8.4715 },
+          { name: 'Lighthouse Grill & Bar', desc: '180° sea views · Multiple terraces · International menu · Live music during golden hour', badge: '🎵 Live Music', lat: 37.0945, lng: -8.4720 },
+          { name: 'O Stop', desc: 'Praised for amazing coastal views and friendly service', badge: null, lat: 37.0940, lng: -8.4718 }
+        ]
+      },
+      {
+        label: '🐟 Authentic Portuguese',
+        restaurants: [
+          { name: 'Jota Lita', desc: 'Family-run on Estrada do Farol (connects Mato Serrão to town) · Exceptional grilled seafood · Truly authentic local experience — highly popular', badge: 'Book Ahead!', bookAhead: true, lat: 37.0948, lng: -8.4697 },
+          { name: 'A Vela', desc: 'Mediterranean & Portuguese cuisine · High-vaulted interior · Heartfelt cooking and hospitable service', badge: null, lat: 37.0941, lng: -8.4710 },
+          { name: 'Happy\'s', desc: 'Tasty Portuguese fare at good prices · Reliable local crowd favorite', badge: '€ Good Value', lat: 37.0942, lng: -8.4702 },
+          { name: 'Donna Maria', desc: 'Dinner & drinks directly on the waterfront · Beach sunset views', badge: null, lat: 37.0942, lng: -8.4700 },
+          { name: 'Cozinha da Avo', desc: 'Mediterranean & BBQ dishes · Large outdoor seating area', badge: null, lat: 37.0940, lng: -8.4706 }
+        ]
+      },
+      {
+        label: '🍷 Wine & Modern',
+        restaurants: [
+          { name: 'Touriga Wine & Dine', desc: 'On lively Estrada do Farol · Portuguese wines by the glass · Creative petiscos — braised pork cheeks, octopus · Sophisticated social atmosphere', badge: 'Wine Bar', lat: 37.0950, lng: -8.4695 },
+          { name: 'Etxea', desc: 'Cozy refuge in town center · Basque-Portuguese fusion · Artistic setting · Creative tasting menus that narrate Iberian coastal gastronomy', badge: 'Tasting Menu', lat: 37.0943, lng: -8.4705 },
+          { name: 'Bon Bon', desc: 'Michelin-starred restaurant in the Sesmarias hills · Modern Algarvian flavors using strictly seasonal produce · Scarlet prawn tasting menus · Special occasion dining', badge: '⭐ Michelin Star', isStar: true, lat: 37.0870, lng: -8.4600 }
+        ]
+      },
+      {
+        label: '🏖️ Casual & Beach',
+        restaurants: [
+          { name: 'Helders Restaurant Bar', desc: 'Large terrace perfect for relaxed meals · Algarvian tuna and European specialties', badge: null, lat: 37.0944, lng: -8.4712 },
+          { name: 'O Bote Beach Bar', desc: 'Hidden gem that rewards those who find the entrance · Beautiful beach views · Casual drinks', badge: 'Hidden Gem', lat: 37.0935, lng: -8.4680 }
+        ]
+      },
+      {
+        label: '🚂 In Ferragudo (Day 4 — Land Train Trip)',
+        restaurants: [
+          { name: 'Sueste', desc: 'High-end riverfront dining on the Arade estuary · Fish priced by the kg grilled over open coals', badge: null, lat: 37.1135, lng: -8.5362 },
+          { name: 'Borda do Cais', desc: 'Riverfront dining · Charcoal-grilled sardines · The smell of grilling fish fills the whole village', badge: null, lat: 37.1130, lng: -8.5360 },
+          { name: 'V5 Petiscaria & Bar', desc: 'Highly rated authentic Portuguese tapas in the main village square (Praça Rainha Dona Leonor)', badge: 'Top Rated', lat: 37.1240, lng: -8.5283 }
+        ]
+      }
+    ]
+  },
+  lisbon: {
+    title: '🏰 Lisbon Dining',
+    categories: [
+      {
+        label: '🏰 By Your Apartment (Castelo)',
+        restaurants: [
+          { name: 'São Jorge Restaurant', desc: 'Dating to 1835 · Old-school charm with modern design · Portuguese petiscos — peixinhos da horta (green bean tempura), sardines, codfish · Minutes from your door', badge: '🏛️ Est. 1835', lat: 38.7135, lng: -9.1337 },
+          { name: 'O Velho Eurico', desc: 'Popular local tasca with young chefs · Contemporary take on traditional dishes · Signature lamb croquettes and duck rice', badge: null, lat: 38.7130, lng: -9.1330 },
+          { name: 'Café da Garagem', desc: 'Inside Teatro Taborda · Ideal for light lunch or coffee · Best panoramic views of the city from this level', badge: 'Best Views', lat: 38.7128, lng: -9.1325 }
+        ]
+      },
+      {
+        label: '🎵 Alfama Traditional',
+        restaurants: [
+          { name: 'Alfama Cellar', desc: 'Celebrated for the best seafood rice in Lisbon · Also: beet gazpacho, wine-braised oxtail · Impressive wine selection', badge: '🦐 Seafood Rice', lat: 38.7120, lng: -9.1320 },
+          { name: 'memmo Alfama Terrace', desc: 'Chic hotel terrace with spectacular neighborhood views · Menu centered on Portuguese meat & cheese sharing plates', badge: 'Terrace Views', lat: 38.7118, lng: -9.1315 },
+          { name: 'Farol de Santa Luzia', desc: 'Authentic neighborhood gem since 1973 · Family-home atmosphere · Shrimp starter (sucking the heads encouraged) · Shrimp & mussel risotto', badge: 'Since 1973', lat: 38.7133, lng: -9.1318 }
+        ]
+      },
+      {
+        label: '🍷 Wine & Quick Bites',
+        restaurants: [
+          { name: 'Alfama Gourmet', desc: 'Charming hole-in-the-wall wine bar · Portuguese green wine · Local conversation around wooden barrels', badge: 'Wine Bar', lat: 38.7122, lng: -9.1322 },
+          { name: 'Pastelaria Santo António', desc: 'Watch bakers prepare fresh pastéis de nata on the climb toward the castle · Perfect warm-from-the-oven stop', badge: 'Pastéis de Nata', lat: 38.7127, lng: -9.1328 },
+          { name: 'Taberna Moderna', desc: 'Updated traditional tavern · 80 different gins to start · Black rice with cuttlefish · Braised tuna · Great shareable plates', badge: null, lat: 38.7125, lng: -9.1316 }
+        ]
+      },
+      {
+        label: '✨ Refined & Experimental',
+        restaurants: [
+          { name: 'Boi-Cavalo', desc: '"Wild child" of Alfama — indie rock instead of Fado · Experimental weekly tasting menu · Unusual dishes: mackerel with pickles, green bean rice with pine nuts', badge: 'Experimental', lat: 38.7115, lng: -9.1310 },
+          { name: 'Antù Alfama', desc: 'Relaxing terrace beneath grapevines · Healthier versions of classics · Vegetarian & gluten-free options · Hemp fried chicken, cauliflower dishes', badge: null, lat: 38.7119, lng: -9.1312 },
+          { name: 'Palacete Chafariz D\'el Rei', desc: 'Lavish palace hotel tea room open to the public · Premier "royal" brunch: Azorean tea, cheeses, fruits & house-made marmalades', badge: 'Royal Brunch', lat: 38.7140, lng: -9.1342 }
+        ]
+      }
+    ]
+  }
+}
+
+// ── FOOD TAB RENDERING ────────────────────────────────────
+function renderFood() {
+  // Seasonal highlights
+  var hlWrap = document.getElementById('food-highlights-wrap')
+  hlWrap.innerHTML = '<div class="fh-groups">' +
+    seasonalHighlights.map(function(g) {
+      return '<div class="fh-group">' +
+        '<div class="fh-group-title">' + g.icon + ' ' + g.title + '</div>' +
+        g.items.map(function(item) {
+          return '<div class="fh-item-simple">' + item + '</div>'
+        }).join('') +
+      '</div>'
+    }).join('') +
+  '</div>'
+
+  // Destination cards
+  var destWrap = document.getElementById('food-dest-wrap')
+  destWrap.innerHTML = '' +
+    '<div class="food-dest-card" onclick="openFoodModal(\'carvoeiro\')">' +
+      '<div class="fdc-header carvoeiro">' +
+        '<span class="fdc-emoji">🏖️</span>' +
+        '<p class="fdc-title">Carvoeiro</p>' +
+        '<p class="fdc-sub">15 restaurants · 5 categories · Algarve coast</p>' +
+        '<span class="fdc-cta">Tap to explore dining →</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="food-dest-card" onclick="openFoodModal(\'lisbon\')">' +
+      '<div class="fdc-header lisbon">' +
+        '<span class="fdc-emoji">🏰</span>' +
+        '<p class="fdc-title">Lisbon</p>' +
+        '<p class="fdc-sub">12 restaurants · 4 categories · Castelo &amp; Alfama</p>' +
+        '<span class="fdc-cta">Tap to explore dining →</span>' +
+      '</div>' +
+    '</div>'
+}
+
+function openFoodModal(location) {
+  var data = foodData[location]
+  document.getElementById('modal-title').textContent = data.title
+
+  var bodyHtml = data.categories.map(function(cat) {
+    return '<p class="rest-cat">' + cat.label + '</p>' +
+      cat.restaurants.map(function(r) {
+        var badgeCls = 'rest-badge' + (r.bookAhead ? ' book' : r.isStar ? ' star' : '')
+        return '<div class="rest-card">' +
+          '<div class="rest-info">' +
+            '<p class="rest-name">' + r.name + '</p>' +
+            '<p class="rest-desc">' + r.desc + '</p>' +
+            (r.badge ? '<span class="' + badgeCls + '">' + r.badge + '</span>' : '') +
+          '</div>' +
+          '<a class="rest-map" href="' + mapsUrl(r.name, r.lat, r.lng) + '">📍</a>' +
+        '</div>'
+      }).join('')
+  }).join('')
+
+  document.getElementById('modal-body').innerHTML = bodyHtml
+  document.getElementById('food-modal').classList.add('open')
+  document.body.style.overflow = 'hidden'
+}
+
+function closeFoodModal() {
+  document.getElementById('food-modal').classList.remove('open')
+  document.body.style.overflow = ''
+}
+
+// ── TAB SWITCHING ──────────────────────────────────────────
+let dailyRendered  = false
+let placesRendered = false
+let foodRendered   = false
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'))
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
+  document.getElementById('pane-' + tab).classList.add('active')
+  document.getElementById('btn-'  + tab).classList.add('active')
+
+  if (tab === 'daily' && !dailyRendered) {
+    renderDaily()
+    dailyRendered = true
+  }
+  if (tab === 'places' && !placesRendered) {
+    renderPlaces()
+    placesRendered = true
+  }
+  if (tab === 'food' && !foodRendered) {
+    renderFood()
+    foodRendered = true
+  }
+  window.scrollTo({ top: 0, behavior: 'instant' })
+}
+
+// ── ACCORDION ─────────────────────────────────────────────
+function toggleAct(el) { el.closest('.act-item').classList.toggle('open') }
+
+// ── LINK PROCESSING ───────────────────────────────────────
+function linkify(text) {
+  // Phone numbers like +351 932 023 829
+  text = text.replace(/(\+\d[\d\s]{8,})/g, m => {
+    const clean = m.replace(/\s/g, '')
+    return `<a href="tel:${clean}">${m}</a>`
+  })
+  return text
+}
+
+// ── MAP — APPLE MAPS URL HELPER ──────────────────────────
+function mapsUrl(name, lat, lng) {
+  return `https://maps.apple.com/?ll=${lat},${lng}&q=${encodeURIComponent(name)}`
+}
+
+// ── BUILDERS ──────────────────────────────────────────────
+function buildActivities(activities, openFirst) {
+  return activities.map((a, i) => {
+    const isOpen = openFirst && i === 0
+    return `<div class="act-item${isOpen ? ' open' : ''}">
+      <div class="act-hdr" onclick="toggleAct(this)">
+        <span class="act-title">${a.title}</span>
+        <span class="act-chev">▼</span>
+      </div>
+      <div class="act-body">
+        <ul>${a.details.map(d => `<li>${linkify(d)}</li>`).join('')}</ul>
+      </div>
+    </div>`
+  }).join('')
+}
+
+function buildDining(dining) {
+  if (!dining || !dining.length) return ''
+  return `<div class="dining-section">
+    <p class="dining-lbl">🍽 Dining</p>
+    ${dining.map(d => `
+      <div class="dc">
+        <div>
+          <p class="dc-name">${d.name}</p>
+          <p class="dc-type">${d.type}</p>
+        </div>
+        <a class="map-pin-btn" href="${mapsUrl(d.name,d.lat,d.lng)}">📍 Map</a>
+      </div>`).join('')}
+  </div>`
+}
+
+function buildAccommodation(acc) {
+  if (!acc) return ''
+  const nightText = acc.packNote
+    ? `${acc.night} · <span class="pack">${acc.packNote}</span>`
+    : acc.night
+  return `<div class="acc-badge">
+    <div class="acc-info">
+      <p class="acc-name">🏠 ${acc.name}</p>
+      <p class="acc-night">${nightText}</p>
+    </div>
+    <a class="acc-map-btn" href="${mapsUrl(acc.name,acc.lat,acc.lng)}">📍 Map</a>
+  </div>`
+}
+
+function buildWarning(day) {
+  if (!day.warning) return ''
+  const cls = day.warningRed ? 'warn warn-red' : 'warn'
+  return `<div class="${cls}">${day.warning}</div>`
+}
+
+// ── COUNTDOWN TIMER ───────────────────────────────────────
+function startCountdown() {
+  if (countdownInterval) clearInterval(countdownInterval)
+
+  function tick() {
+    const now  = new Date()
+    const diff = DEPARTURE - now
+    if (diff <= 0) {
+      clearInterval(countdownInterval)
+      renderToday() // re-render — trip may have started
+      return
+    }
+    const days  = Math.floor(diff / 86400000)
+    const hours = Math.floor((diff % 86400000) / 3600000)
+    const mins  = Math.floor((diff % 3600000)  / 60000)
+    const secs  = Math.floor((diff % 60000)    / 1000)
+    const set = (id, val) => {
+      const el = document.getElementById(id)
+      if (el) el.textContent = String(val).padStart(2, '0')
+    }
+    set('cd-days', days)
+    set('cd-hrs',  hours)
+    set('cd-mins', mins)
+    set('cd-secs', secs)
+  }
+
+  tick()
+  countdownInterval = setInterval(tick, 1000)
+}
+
+// ── RENDER TODAY ───────────────────────────────────────────
+function renderToday() {
+  const now   = new Date()
+  const today = now.toISOString().slice(0,10)
+  const day   = tripData.find(d => d.date === today)
+  const wrap  = document.getElementById('today-wrap')
+
+  // Clear any running countdown
+  if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null }
+
+  if (now < DEPARTURE) {
+    // ── PRE-TRIP: live countdown to DFW takeoff ──
+    wrap.innerHTML = `
+      <div class="trip-hero" style="padding-bottom:24px">
+        <span class="flag">🇵🇹</span>
+        <h2>Adventure is Out There!</h2>
+        <p>Bruce · Judy · Lauren · Carvoeiro &amp; Lisbon</p>
+        <div class="countdown-grid">
+          <div class="cd-unit"><span class="cd-num" id="cd-days">--</span><span class="cd-label">Days</span></div>
+          <div class="cd-unit"><span class="cd-num" id="cd-hrs">--</span><span class="cd-label">Hours</span></div>
+          <div class="cd-unit"><span class="cd-num" id="cd-mins">--</span><span class="cd-label">Mins</span></div>
+          <div class="cd-unit"><span class="cd-num" id="cd-secs">--</span><span class="cd-label">Secs</span></div>
+        </div>
+        <span class="cd-flight">✈️ AA 132 · DFW → Dublin · May 3 at 7:10 PM</span>
+      </div>`
+    startCountdown()
+
+  } else if (day) {
+    // ── ON TRIP: show today's full plan ──
+    const chips = [
+      getWeatherChip(day),
+      day.sunset ? `<span class="chip chip-sun">🌅 Sunset ${day.sunset}</span>` : ''
+    ].filter(Boolean).join('')
+
+    wrap.innerHTML = `
+      <div class="today-hdr">
+        <p class="dl">${day.emoji} Day ${day.dayNum} · ${day.fullDay}</p>
+        <p class="dm">${day.location}</p>
+        ${chips ? `<div class="ddc-chips" style="margin-top:8px">${chips}</div>` : ''}
+      </div>
+      <div class="today-card" style="margin-top:14px">
+        ${buildWarning(day)}
+        ${buildActivities(day.activities, true)}
+        ${buildDining(day.dining)}
+        ${buildAccommodation(day.accommodation)}
+      </div>`
+
+  } else if (now >= TRIP_END) {
+    // ── POST-TRIP ──
+    wrap.innerHTML = `
+      <div class="trip-hero">
+        <span class="flag">🇵🇹</span>
+        <h2>What a Trip!</h2>
+        <p>Bruce · Judy · Lauren</p>
+        <span class="dates">May 3–10, 2026 · Carvoeiro &amp; Lisbon</span>
+        <p style="margin-top:16px;font-size:14px;opacity:.8">Browse your memories in the Daily and Places tabs.</p>
+      </div>`
+  }
+}
+
+// ── RENDER DAILY ───────────────────────────────────────────
+function renderDailyCards(containerId) {
+  const wrap = document.getElementById(containerId)
+  wrap.innerHTML = tripData.map((day, i) => {
+    const wChip = getWeatherChip(day)
+    const chips = [
+      wChip,
+      day.sunset ? `<span class="chip chip-sun">🌅 ${day.sunset}</span>` : ''
+    ].filter(Boolean).join('')
+
+    return `<div class="daily-day-card day-gap" style="animation-delay:${i*55}ms">
+      <div class="ddc-header">
+        <span class="ddc-emoji">${day.emoji}</span>
+        <div class="ddc-info">
+          <p class="ddc-title">Day ${day.dayNum} · ${day.fullDay}</p>
+          <p class="ddc-location">${day.location}</p>
+          ${chips ? `<div class="ddc-chips">${chips}</div>` : ''}
+        </div>
+      </div>
+      ${buildWarning(day)}
+      ${buildActivities(day.activities, false)}
+      ${buildDining(day.dining)}
+      ${buildAccommodation(day.accommodation)}
+    </div>`
+  }).join('')
+}
+
+function renderDaily() {
+  renderDailyCards('daily-wrap')
+}
+
+// ── RENDER PLACES ──────────────────────────────────────────
+function renderPlaces() {
+  const wrap = document.getElementById('places-wrap')
+  wrap.innerHTML = placesData.map((p, i) => `
+    <div class="place-card" style="animation:cardIn .38s ease both;animation-delay:${i*120}ms">
+      <div class="place-hdr">
+        <p class="place-name">${p.name}</p>
+        <p class="place-dates">${p.region} · ${p.dates}</p>
+      </div>
+      <div class="place-body">
+        <p class="pl-lbl">Character</p>
+        <p style="font-size:14px;color:var(--stone);font-style:italic;line-height:1.5;margin-bottom:4px">${p.character}</p>
+
+        <p class="pl-lbl">Accommodation</p>
+        <div class="irow"><span class="il">Hotel</span><span class="iv">${p.hotel}</span></div>
+        <div class="irow"><span class="il">Address</span><span class="iv" style="font-size:13px">${p.hotelAddress}</span></div>
+        <div class="irow"><span class="il">Phone</span><span class="iv"><a href="tel:${p.hotelPhone.replace(/\s/g,'')}">${p.hotelPhone}</a></span></div>
+        <div class="irow"><span class="il">Confirmation</span><span class="iv" style="font-family:'Courier New',monospace;font-weight:700;font-size:16px">${p.hotelConf}</span></div>
+        <div class="irow"><span class="il">Total</span><span class="iv">${p.hotelTotal}</span></div>
+        <a class="map-btn-full" href="${mapsUrl(p.hotel,p.lat,p.lng)}">📍 Open in Maps</a>
+
+        <p class="pl-lbl">Weather (May)</p>
+        <div class="irow"><span class="il">Temps</span><span class="iv">${p.weather}</span></div>
+        ${p.sunset ? `<div class="irow"><span class="il">Sunset</span><span class="iv">${p.sunset}</span></div>` : ''}
+
+        <p class="pl-lbl">Highlights</p>
+        <ul class="hl-list">${p.highlights.map(h => `<li>${h}</li>`).join('')}</ul>
+
+        <p class="pl-lbl">Dining Guide</p>
+        <table class="dt">
+          <thead><tr><th>Restaurant</th><th>Style</th></tr></thead>
+          <tbody>${p.dining.map(r => `
+            <tr>
+              <td>
+                <p class="rn">${r.name}</p>
+                <p class="rno">${r.note}</p>
+              </td>
+              <td>
+                <p style="font-size:13px;color:var(--stone)">${r.style}</p>
+                <a class="map-pin-btn" style="margin-top:5px" href="${mapsUrl(r.name,r.lat,r.lng)}">📍</a>
+              </td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+
+        <p class="pl-lbl">Local Tips</p>
+        <ul class="tips-box">${p.tips.map(t => `<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div>`).join('')
+}
+
+// ── RENDER CHECKLIST ───────────────────────────────────────
+function renderChecklist() {
+  var saved = {}
+  try { saved = JSON.parse(localStorage.getItem('pt26-cl') || '{}') } catch(e) {}
+  var ul = document.getElementById('checklist')
+  ul.innerHTML = checklistItems.map(function(item) {
+    return '<li class="' + (saved[item.id] ? 'ck' : '') + '" onclick="toggleCheck(\'' + item.id + '\', this)">' +
+      '<span class="cb"></span>' +
+      '<span class="ct">' + item.text + '</span>' +
+    '</li>'
+  }).join('')
+}
+function toggleCheck(id, li) {
+  li.classList.toggle('ck')
+  try {
+    var saved = JSON.parse(localStorage.getItem('pt26-cl') || '{}')
+    saved[id] = li.classList.contains('ck')
+    localStorage.setItem('pt26-cl', JSON.stringify(saved))
+  } catch(e) {}
+}
+
+// ── INIT ──────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  // Render all content synchronously first — never block on network
+  renderToday();
+  renderChecklist();
+
+  // Fire-and-forget: fetch weather, then re-render when data arrives
+  fetchCurrentWeather();
+  fetchDailyForecasts().then(function() {
+    // Re-render today with live weather chips now that forecast cache is populated
+    renderToday();
+  }).catch(function() {});
+});
+</script>
+</body>
+</html>
