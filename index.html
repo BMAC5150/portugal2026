@@ -763,8 +763,8 @@ a[href^="tel:"]{color:var(--azulejo);font-weight:600;text-decoration:none}
           <span class="conf-code">LQNQIL</span>
         </div>
         <div class="conf-row">
-          <span class="conf-lbl">Flights LIS→DFW — Judy<br><small>Same flights, separate ticket</small></span>
-          <span class="conf-tbd">⚠️ TBD — Get this code</span>
+          <span class="conf-lbl">Flights LIS→DFW — Judy<br><small>AA 7124 + AA 6950 · May 10 · British Airways</small></span>
+          <span class="conf-code">C8MHAA</span>
         </div>
         <div class="conf-row">
           <span class="conf-lbl">Casas de Carvoeiro<br><small>+351 932 023 829</small></span>
@@ -1227,7 +1227,7 @@ const tripData = [
           'Depart 12:55 PM from LHR · Arrive 5:05 PM at DFW',
           'Duration: 10h 10m · Economy',
           '⚠️ Bruce + Lauren: Confirmation LQNQIL',
-          '⚠️ Judy: SEPARATE TICKET — confirmation TBD',
+          '⚠️ Judy: Separate ticket · Confirmation C8MHAA (British Airways)',
           'Same flights, different bookings — manage all three boarding passes',
           'Total return flights (Bruce + Lauren): $1,620.26'
         ]
@@ -1509,33 +1509,36 @@ const foodData = {
       {
         label: '🏰 By Your Apartment (Castelo)',
         restaurants: [
-          { name: 'São Jorge Restaurant', desc: 'Dating to 1835 · Old-school charm with modern design · Portuguese petiscos — peixinhos da horta (green bean tempura), sardines, codfish · Minutes from your door', badge: '🏛️ Est. 1835', lat: 38.7135, lng: -9.1337 },
-          { name: 'O Velho Eurico', desc: 'Popular local tasca with young chefs · Contemporary take on traditional dishes · Signature lamb croquettes and duck rice', badge: null, lat: 38.7130, lng: -9.1330 },
-          { name: 'Café da Garagem', desc: 'Inside Teatro Taborda · Ideal for light lunch or coffee · Best panoramic views of the city from this level', badge: 'Best Views', lat: 38.7128, lng: -9.1325 }
+          { name: 'São Jorge Restaurant', desc: 'Est. 1835 · Original Estremoz marble and traditional brick interior · Portuguese petiscos — peixinhos da horta (green bean tempura) · Minutes from your front door', badge: '🏛️ Est. 1835', lat: 38.7135, lng: -9.1337 },
+          { name: 'O Velho Eurico', desc: 'Popular local tasca with lively ambiance, music and good cheer · Young chefs, traditional dishes with a contemporary touch · Signature lamb croquettes & duck rice', badge: null, lat: 38.7130, lng: -9.1330 },
+          { name: 'Café da Garagem', desc: 'Inside Teatro Taborda · Light lunch or coffee · Best panoramic views of the city', badge: 'Best Views', lat: 38.7128, lng: -9.1325 },
+          { name: 'Tasca Baldracca', desc: 'Casual and unusual — three experienced partners serving Portuguese classics with creative Brazilian twists · Mouraria neighborhood, just below the castle walls', badge: 'Portuguese/Brazilian', lat: 38.7155, lng: -9.1358 }
         ]
       },
       {
         label: '🎵 Alfama Traditional',
         restaurants: [
-          { name: 'Alfama Cellar', desc: 'Celebrated for the best seafood rice in Lisbon · Also: beet gazpacho, wine-braised oxtail · Impressive wine selection', badge: '🦐 Seafood Rice', lat: 38.7120, lng: -9.1320 },
-          { name: 'memmo Alfama Terrace', desc: 'Chic hotel terrace with spectacular neighborhood views · Menu centered on Portuguese meat & cheese sharing plates', badge: 'Terrace Views', lat: 38.7118, lng: -9.1315 },
-          { name: 'Farol de Santa Luzia', desc: 'Authentic neighborhood gem since 1973 · Family-home atmosphere · Shrimp starter (sucking the heads encouraged) · Shrimp & mussel risotto', badge: 'Since 1973', lat: 38.7133, lng: -9.1318 }
-        ]
-      },
-      {
-        label: '🍷 Wine & Quick Bites',
-        restaurants: [
-          { name: 'Alfama Gourmet', desc: 'Charming hole-in-the-wall wine bar · Portuguese green wine · Local conversation around wooden barrels', badge: 'Wine Bar', lat: 38.7122, lng: -9.1322 },
-          { name: 'Pastelaria Santo António', desc: 'Watch bakers prepare fresh pastéis de nata on the climb toward the castle · Perfect warm-from-the-oven stop', badge: 'Pastéis de Nata', lat: 38.7127, lng: -9.1328 },
-          { name: 'Taberna Moderna', desc: 'Updated traditional tavern · 80 different gins to start · Black rice with cuttlefish · Braised tuna · Great shareable plates', badge: null, lat: 38.7125, lng: -9.1316 }
+          { name: 'Alfama Cellar', desc: 'Best seafood rice in Lisbon · Velvet-textured beet gazpacho · Wine-braised oxtail · Impressive wine selection · Northeast Alfama gem', badge: '🦐 Seafood Rice', lat: 38.7120, lng: -9.1320 },
+          { name: 'Prado', desc: 'Farm-to-table with industrial chic decor · Steps from the Sé cathedral · Modern seasonal cuisine: fresh Portuguese seafood and organic regional vegetables', badge: 'Farm-to-Table', lat: 38.7094, lng: -9.1363 },
+          { name: 'memmo Alfama Terrace', desc: 'Chic hotel terrace with spectacular neighborhood views · Portuguese meat & cheese sharing plates', badge: 'Terrace Views', lat: 38.7118, lng: -9.1315 },
+          { name: 'Farol de Santa Luzia', desc: 'Neighborhood gem since 1973 · Family-home atmosphere · Shrimp starter (sucking the heads encouraged) · Shrimp & mussel risotto', badge: 'Since 1973', lat: 38.7133, lng: -9.1318 }
         ]
       },
       {
         label: '✨ Refined & Experimental',
         restaurants: [
-          { name: 'Boi-Cavalo', desc: '"Wild child" of Alfama — indie rock instead of Fado · Experimental weekly tasting menu · Unusual dishes: mackerel with pickles, green bean rice with pine nuts', badge: 'Experimental', lat: 38.7115, lng: -9.1310 },
-          { name: 'Antù Alfama', desc: 'Relaxing terrace beneath grapevines · Healthier versions of classics · Vegetarian & gluten-free options · Hemp fried chicken, cauliflower dishes', badge: null, lat: 38.7119, lng: -9.1312 },
-          { name: 'Palacete Chafariz D\'el Rei', desc: 'Lavish palace hotel tea room open to the public · Premier "royal" brunch: Azorean tea, cheeses, fruits & house-made marmalades', badge: 'Royal Brunch', lat: 38.7140, lng: -9.1342 }
+          { name: 'Boi-Cavalo', desc: '"Wild child" of Alfama — indie rock instead of Fado · Experimental weekly tasting menu · Unusual Portuguese products: mackerel with pickles, green bean rice with pine nuts', badge: 'Experimental', lat: 38.7115, lng: -9.1310 },
+          { name: 'Palacete Chafariz D\'el Rei', desc: 'Lavish palace hotel tea room open to the public · Premier "royal" brunch: Azorean tea, cheeses, fruits & house-made marmalades', badge: 'Royal Brunch', lat: 38.7140, lng: -9.1342 },
+          { name: 'Taberna Moderna', desc: 'Informal updated tavern · Start with one of 80 different gins · Black rice with cuttlefish · Braised tuna · Great shareable plates', badge: null, lat: 38.7125, lng: -9.1316 }
+        ]
+      },
+      {
+        label: '🍷 Wine & Quick Bites',
+        restaurants: [
+          { name: 'As Bifanas do Afonso', desc: 'Lisbon\'s most famous sandwich shop on the castle climb · Bifana: thin pork simmered in wine, garlic & lard on a sweet potato bun · One of the city\'s best-kept street food secrets', badge: '🥖 Must Try', lat: 38.7138, lng: -9.1348 },
+          { name: 'Alfama Gourmet', desc: 'Charming hole-in-the-wall wine bar · Portuguese green wine · Local conversation around wooden barrels', badge: 'Wine Bar', lat: 38.7122, lng: -9.1322 },
+          { name: 'Pastelaria Santo António', desc: 'Watch bakers prepare fresh pastéis de nata on the climb toward the castle · Perfect warm-from-the-oven stop', badge: 'Pastéis de Nata', lat: 38.7127, lng: -9.1328 },
+          { name: 'Antù Alfama', desc: 'Relaxing terrace beneath grapevines · Healthier versions of classics · Vegetarian & gluten-free options', badge: null, lat: 38.7119, lng: -9.1312 }
         ]
       }
     ]
@@ -1572,7 +1575,7 @@ function renderFood() {
       '<div class="fdc-header lisbon">' +
         '<span class="fdc-emoji">🏰</span>' +
         '<p class="fdc-title">Lisbon</p>' +
-        '<p class="fdc-sub">12 restaurants · 4 categories · Castelo &amp; Alfama</p>' +
+        '<p class="fdc-sub">15 restaurants · 4 categories · Castelo &amp; Alfama</p>' +
         '<span class="fdc-cta">Tap to explore dining →</span>' +
       '</div>' +
     '</div>'
