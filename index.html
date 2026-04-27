@@ -913,9 +913,12 @@ const tripData = [
       {
         title: '🚕 Private Transfer: Faro Airport → Carvoeiro',
         details: [
-          'Pre-book private transfer for 3 adults + luggage',
-          'Duration: ~55–60 minutes · Cost: ~€65–66',
-          'Route: EN125 through Algarve countryside'
+          'Operator: Algarserra · Booking 260427-83601 · <a href="https://www.faro-airport-taxis.com" target="_blank">faro-airport-taxis.com</a>',
+          'Flight EI494 arrives 3:00 PM · Driver monitors flight — no need to call if delayed',
+          'Meet & Greet: After baggage claim turn LEFT toward public area · Find Algarserra driver in front of ClubstoHire store holding company sign · Allow 5–10 min for driver to arrive after meeting staff',
+          '3 passengers · Private taxi · Total €66.00 due on day',
+          'Support line: <a href="tel:+351308800730">+351 308 800 730</a> (English) · Secret code: 8360103#',
+          'Email: <a href="mailto:info@faro-airport-taxis.com">info@faro-airport-taxis.com</a> · Quote booking ID 260427-83601'
         ]
       },
       {
@@ -1328,77 +1331,81 @@ const checklistItems = [
   { id: 'cl1', text: 'Complete Carvoeiro online check-in form (by April 24)' },
   { id: 'cl2', text: 'Book train tickets Estômbar-Lagoa → Lisbon at cp.pt' },
   { id: 'cl3', text: 'Book Benagil boat tour at carvoeirocaves.com' },
-  { id: 'cl4', text: 'Book Faro airport → Carvoeiro private transfer' },
+  { id: 'cl4', text: 'Faro airport → Carvoeiro transfer CONFIRMED · Algarserra · Booking 260427-83601 · €66 due on day' },
   { id: 'cl5', text: 'Download offline maps (Carvoeiro, Lagoa, Ferragudo, Lisbon)' },
   { id: 'cl6', text: 'Notify credit card companies of Portugal travel' },
   { id: 'cl7', text: 'Arrange Lisbon airport taxi for May 10 (book night before)' },
   { id: 'cl8', text: 'Pack: walking shoes, sunscreen, EU adapter (Type F), evening layers' },
-  { id: 'cl9', text: 'Get Judy\'s return flight confirmation code' }
+  { id: 'cl9', text: 'Judy\'s return flight confirmed · C8MHAA (British Airways)' }
 ]
 
 // ── WEATHER FETCHING ───────────────────────────────────────
-async function fetchCurrentWeather() {
-  const wrap = document.getElementById('weather-wrap')
-  wrap.innerHTML = `<div class="weather-widget loading">
-    <div class="wt-top">
-      <div><p class="wt-loc">CARVOEIRO</p><div class="wt-temp">--<span class="wt-unit">°F</span></div></div>
-      <div class="wt-icon">🌤️</div>
-    </div>
-  </div>`
+function fetchCurrentWeather() {
+  var wrap = document.getElementById('weather-wrap')
+  if (!wrap) return Promise.resolve()
+  wrap.innerHTML = '<div class="weather-widget loading">' +
+    '<div class="wt-top">' +
+      '<div><p class="wt-loc">CARVOEIRO</p><div class="wt-temp">--<span class="wt-unit">°F</span></div></div>' +
+      '<div class="wt-icon">🌤️</div>' +
+    '</div>' +
+  '</div>'
 
-  try {
-    const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=37.0942&longitude=-8.4728&current_weather=true&temperature_unit=fahrenheit')
-    if (!r.ok) throw new Error('Weather API error')
-    const d = await r.json()
-    const temp = Math.round(d.current_weather.temperature)
-    const code = d.current_weather.weathercode
-    const icon = W_ICON[code] || '🌤️'
-    const desc = W_DESC[code] || 'Clear'
-    wrap.innerHTML = `<div class="weather-widget loaded">
-      <div class="wt-top">
-        <div>
-          <p class="wt-loc">CARVOEIRO</p>
-          <div class="wt-temp">${temp}<span class="wt-unit">°F</span></div>
-          <p class="wt-desc">${desc}</p>
-        </div>
-        <div class="wt-icon">${icon}</div>
-      </div>
-      <a href="weather://" class="wt-link">Open Weather →</a>
-    </div>`
-  } catch(e) {
-    wrap.innerHTML = `<div class="weather-widget loaded">
-      <div class="wt-top">
-        <div><p class="wt-loc">CARVOEIRO</p><div class="wt-temp">--<span class="wt-unit">°F</span></div><p class="wt-desc">Unavailable</p></div>
-        <div class="wt-icon">🌤️</div>
-      </div>
-      <a href="weather://" class="wt-link">Open Weather →</a>
-    </div>`
-  }
+  return fetch('https://api.open-meteo.com/v1/forecast?latitude=37.0942&longitude=-8.4728&current_weather=true&temperature_unit=fahrenheit')
+    .then(function(r) {
+      if (!r.ok) throw new Error('weather error')
+      return r.json()
+    })
+    .then(function(d) {
+      var temp = Math.round(d.current_weather.temperature)
+      var code = d.current_weather.weathercode
+      var icon = W_ICON[code] || '🌤️'
+      var desc = W_DESC[code] || 'Clear'
+      wrap.innerHTML = '<div class="weather-widget loaded">' +
+        '<div class="wt-top">' +
+          '<div>' +
+            '<p class="wt-loc">CARVOEIRO</p>' +
+            '<div class="wt-temp">' + temp + '<span class="wt-unit">°F</span></div>' +
+            '<p class="wt-desc">' + desc + '</p>' +
+          '</div>' +
+          '<div class="wt-icon">' + icon + '</div>' +
+        '</div>' +
+        '<a href="weather://" class="wt-link">Open Weather →</a>' +
+      '</div>'
+    })
+    .catch(function() {
+      wrap.innerHTML = '<div class="weather-widget loaded">' +
+        '<div class="wt-top">' +
+          '<div><p class="wt-loc">CARVOEIRO</p><div class="wt-temp">--<span class="wt-unit">°F</span></div><p class="wt-desc">Unavailable</p></div>' +
+          '<div class="wt-icon">🌤️</div>' +
+        '</div>' +
+        '<a href="weather://" class="wt-link">Open Weather →</a>' +
+      '</div>'
+    })
 }
 
 // Fetch daily forecast for both locations, cache by date
-async function fetchDailyForecasts() {
-  const locations = [
+function fetchDailyForecasts() {
+  var locations = [
     { name: 'carvoeiro', lat: 37.0942, lng: -8.4728 },
     { name: 'lisbon',    lat: 38.7123, lng: -9.1335 }
   ]
-  const url = (lat, lng) =>
-    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&daily=temperature_2m_max,temperature_2m_min,weathercode&temperature_unit=fahrenheit&timezone=auto&forecast_days=16`
-
-  try {
-    const results = await Promise.all(locations.map(l => fetch(url(l.lat, l.lng)).then(r => r.json())))
-    results.forEach((data, i) => {
-      const loc = locations[i]
-      data.daily.time.forEach((date, idx) => {
-        const key = `${date}:${loc.name}`
-        forecastCache[key] = {
-          max: Math.round(data.daily.temperature_2m_max[idx]),
-          min: Math.round(data.daily.temperature_2m_min[idx]),
-          code: data.daily.weathercode[idx]
-        }
+  var promises = locations.map(function(loc) {
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + loc.lat + '&longitude=' + loc.lng +
+      '&daily=temperature_2m_max,temperature_2m_min,weathercode&temperature_unit=fahrenheit&timezone=auto&forecast_days=16'
+    return fetch(url)
+      .then(function(r) { return r.json() })
+      .then(function(data) {
+        data.daily.time.forEach(function(date, idx) {
+          forecastCache[date + ':' + loc.name] = {
+            max: Math.round(data.daily.temperature_2m_max[idx]),
+            min: Math.round(data.daily.temperature_2m_min[idx]),
+            code: data.daily.weathercode[idx]
+          }
+        })
       })
-    })
-  } catch(e) { /* silent — fall back to static weather strings */ }
+      .catch(function() {})
+  })
+  return Promise.all(promises)
 }
 
 function getWeatherChip(day) {
@@ -1904,12 +1911,11 @@ document.addEventListener('DOMContentLoaded', function() {
   renderToday();
   renderChecklist();
 
-  // Fire-and-forget: fetch weather, then re-render when data arrives
-  fetchCurrentWeather();
+  // Fire-and-forget: fetch weather in parallel, re-render today when forecasts land
+  fetchCurrentWeather().catch(function() {})
   fetchDailyForecasts().then(function() {
-    // Re-render today with live weather chips now that forecast cache is populated
-    renderToday();
-  }).catch(function() {});
+    try { renderToday() } catch(e) {}
+  }).catch(function() {})
 });
 </script>
 </body>
