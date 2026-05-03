@@ -181,7 +181,7 @@ main{max-width: 600px; margin: 0 auto; padding: 0 0 40px}
 }
 .trip-hero .flag{font-size:52px;margin-bottom:12px;display:block}
 .trip-hero h2{
-  font-family:var(--display);font-size:26px;font-weight:700;
+  font-family:var(--display);font-size:39px;font-weight:700;
   color:var(--white);margin-bottom:8px;line-height:1.2;
 }
 .trip-hero p{font-size:15px;color:rgba(255,255,255,.75)}
@@ -190,6 +190,23 @@ main{max-width: 600px; margin: 0 auto; padding: 0 0 40px}
   background:rgba(232,169,39,.25);border:1px solid rgba(232,169,39,.4);
   color:var(--gold);border-radius:22px;padding:6px 18px;
   font-size:14px;font-weight:600;letter-spacing:.3px;
+}
+
+/* ── HERE WE GO BANNER ── */
+.hwg{
+  margin:20px 0 4px;padding:18px 0 16px;
+  border-top:1px solid rgba(255,255,255,.15);
+  border-bottom:1px solid rgba(255,255,255,.15);
+}
+.hwg h3{
+  font-family:var(--display);font-size:34px;font-weight:700;
+  color:#fff;letter-spacing:-.3px;margin-bottom:12px;line-height:1.1;
+}
+.hwg-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(232,169,39,.25);border:1px solid rgba(232,169,39,.4);
+  color:var(--gold);border-radius:22px;padding:7px 18px;
+  font-size:13px;font-weight:600;letter-spacing:.2px;
 }
 
 /* ── COUNTDOWN TIMER ── */
@@ -816,6 +833,55 @@ a[href^="tel:"]{color:var(--azulejo);font-weight:600;text-decoration:none}
           <span class="conf-lbl">Faro Airport Taxis — FAO → Carvoeiro<br><small>+351 308 800 730 · Secret code: 8360103#</small></span>
           <span class="conf-code">260427-83601</span>
         </div>
+      </div>
+    </div>
+
+    <!-- Carvoeiro Check-in -->
+    <div class="info-card">
+      <div class="ic-hdr"><h3>🏠 Casas de Carvoeiro — Check-in</h3></div>
+      <div class="ic-body">
+        <div class="irow"><span class="il">Apartment</span><span class="iv">Casa Sol 6</span></div>
+        <div class="irow"><span class="il">Address</span><span class="iv" style="font-size:13px">Rampa do Mato Serrão, Urb. Algarvesol 5, 8400-521 Carvoeiro</span></div>
+        <div class="irow"><span class="il">Key box</span><span class="iv">Left wall at the entrance</span></div>
+        <div class="irow"><span class="il">How to open</span><span class="iv" style="font-size:13px">Push down black plastic cover · spin wheels to enter code · press down lever on left</span></div>
+
+        <div style="background:rgba(232,169,39,.15);border:1px solid rgba(232,169,39,.45);border-radius:10px;padding:14px 16px;margin:16px 0;text-align:center">
+          <p style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold-dark);margin-bottom:6px">KEY BOX CODE</p>
+          <p style="font-size:44px;font-weight:700;font-family:var(--display);color:var(--ocean);letter-spacing:8px;line-height:1">6049</p>
+        </div>
+
+        <p class="emerg-lbl">Keys</p>
+        <p style="font-size:14px;color:var(--charcoal);line-height:1.55">Two keys in the box: the key with a round metal plate marked <strong>Apt 6</strong> is for daily use. The second is an emergency key — <strong>always leave it in the box</strong>, including when you check out.</p>
+
+        <p class="emerg-lbl">Pool Access</p>
+        <p style="font-size:14px;color:var(--charcoal);line-height:1.55">From outside, walk to <strong>Apartment 08</strong> · glass door · down the stairs · pool is on your right.</p>
+
+        <p class="emerg-lbl">Laundry Room</p>
+        <p style="font-size:14px;color:var(--charcoal);line-height:1.55">Door next to the parking space, opened with the second key from the box. Keep the door closed after use.</p>
+
+        <p class="emerg-lbl">Wi-Fi &amp; Local Info</p>
+        <p style="font-size:14px;color:var(--charcoal);line-height:1.55">Wi-Fi code and local recommendations are in the information book inside the apartment.</p>
+
+        <p class="emerg-lbl">Contact</p>
+        <p><a href="tel:+351932023829">+351 932 023 829</a></p>
+        <p class="emerg-sub"><a href="mailto:Contact@sevencollection.de">Contact@sevencollection.de</a> · Carla Sales</p>
+
+        <p style="margin-top:14px"><a href="https://checkin.newhotelcloud.com/#/update-success" target="_blank" class="map-btn-full" style="font-size:14px">Online Check-in Form →</a></p>
+      </div>
+    </div>
+
+    <!-- Castle Inn Lisbon Arrival -->
+    <div class="info-card">
+      <div class="ic-hdr"><h3>🏰 Arriving at Castle Inn Lisbon</h3></div>
+      <div class="ic-body">
+        <div class="warn warn-red" style="margin:0 0 16px">⚠️ Do NOT book taxis or transfers online — they will drop you at the bottom of the hill. Uber, Cabify, and app-based transfers cannot enter the castle area.</div>
+
+        <p class="emerg-lbl">From the Airport</p>
+        <p style="font-size:14px;color:var(--charcoal);line-height:1.55">Use the <strong>airport's dedicated taxi queue</strong> — all taxis in that queue are authorized to enter the castle area. The queue moves quickly.</p>
+
+        <p class="emerg-lbl">Pre-arranged Transfer</p>
+        <p style="font-size:14px;color:var(--charcoal);line-height:1.55">If you prefer a transfer to be arranged for you, contact the property in advance:</p>
+        <p style="margin-top:6px"><a href="tel:+351968123838">+351 968 123 838</a></p>
       </div>
     </div>
 
@@ -1869,15 +1935,12 @@ function renderToday() {
         <h2>Adventure is Out There!</h2>
         <p>Bruce · Judy · Lauren · Carvoeiro &amp; Lisbon</p>
         <div id="weather-wrap"></div>
-        <div class="countdown-grid">
-          <div class="cd-unit"><span class="cd-num" id="cd-days">--</span><span class="cd-label">Days</span></div>
-          <div class="cd-unit"><span class="cd-num" id="cd-hrs">--</span><span class="cd-label">Hours</span></div>
-          <div class="cd-unit"><span class="cd-num" id="cd-mins">--</span><span class="cd-label">Mins</span></div>
-          <div class="cd-unit"><span class="cd-num" id="cd-secs">--</span><span class="cd-label">Secs</span></div>
+        <div class="hwg">
+          <h3>Here We Go! 🎉</h3>
+          <span class="hwg-chip">✈️ AA 132 · DFW → Dublin · 7:10 PM tonight</span>
         </div>
         ${buildDaySlug()}
       </div>`
-    startCountdown()
 
   } else if (day) {
     // ── ON TRIP: show today's full plan ──
